@@ -27,6 +27,6 @@ clean:
 	latexmk -C
 	rm *.listing || true
 	rm *.pyg || true
+	rm -rf _minted-*
 
 FORCE:
-
