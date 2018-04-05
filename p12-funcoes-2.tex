@@ -1,0 +1,102 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 12}
+\title{Funções: Segunda Parte}
+\author{}
+\date{2013--2}
+\maketitle
+
+\begin{abstract}
+  As atividades propostas nesta prática visam aprimorar as noções sobre
+  funções definidas pelo própio programador para o desenvolvimento de
+  aplicações.
+\end{abstract}
+
+%\tableofcontents
+
+\section{Exercícios}
+
+\begin{task}[breakable]{Triângulos}{}
+
+  Crie um programa que receba três valores (obrigatoriamente maiores que
+  zero), representando as mediadas dos três lados de um triângulo,
+  verifica se estes lados formam um triângulo e, em caso afirmativo,
+  classifica o triângulo quanto aos lados.
+
+  Defina funções para:
+  \begin{itemize}
+    \item determinar se três valores dados podem ser medidas dos lados
+    de um triângulo (sabe-se que, para ser um triângulo, a medida de um
+    lado qualquer deve ser inferior ou igual à soma das medidas dos
+    outros dois), e
+    \item classificar o triângulo quanto aos lados (equilátero,
+    isósceles ou escaleno).
+  \end{itemize}
+
+  O programa principal deverá ler os lados e usar as funções para
+  determinar se os lados realmente formam um triângulo e, em caso
+  positivo, classificar o triângulo.
+
+\paragraph{Dicas:}
+\begin{itemize}
+  \item A primeira função terá três argumentos (as medidas dos lados do
+  triângulo) e um resultado (valor lógico indicando se os lados forma ou
+  não um triângulo).
+  \item A segunda funão também terá três argumentos e um resultado
+  \emph{string} indicando a classificação do triângulo.
+\end{itemize}
+
+  \begin{runexample}
+Triângulos
+===============================
+primeiro lado: 10
+segundo lado: 10
+terceiro lado: 10
+
+classificação: equilátero
+  \end{runexample}
+
+  \begin{runexample}
+Triângulos
+===============================
+primeiro lado: 10
+segundo lado: 13
+terceiro lado: 10
+
+classificação: isósceles
+   \end{runexample}
+
+  \begin{runexample}
+Triângulos
+===============================
+primeiro lado: 10
+segundo lado: 8
+terceiro lado: 15
+
+classificação: escaleno
+  \end{runexample}
+
+  \begin{runexample}
+Triângulos
+===============================
+primeiro lado: 3
+segundo lado: 2
+terceiro lado: 1
+
+não é triângulo
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p12/triangulo.sce}
+\end{task}
+
+\end{document}
+

@@ -1,0 +1,431 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 12}
+\title{Vetores: Primeira Parte}
+\author{}
+\date{2014--2}
+\maketitle
+
+\begin{abstract}
+  As atividades propostas nesta prática visam explorar as primeiras
+  noções sobre vetores para o desenvolvimento de aplicações.
+\end{abstract}
+
+\tableofcontents
+
+\section{Vetores e matrizes}
+
+A unidade fundamental de dados em Scilab é a \textbf{matriz}. Uma matriz
+é semelhante a uma tabela, exceto que uma matriz pode ter qualquer
+número de dimensões, enquanto uma tabela geralmente tem apenas duas
+dimensões, que usualmente são chamadas de linhas e colunas.
+
+Por exemplo, as matrizes $A$, $B$ e $C$, a seguir, têm dimensões
+$1\times 5$, $3\times 1$ e $3\times 2$, respectivamente:
+\[
+\begin{array}{lll}
+  A = \begin{array}{|r|r|r|r|r|} \hline
+        3 & 5 & 7 & 12 & 9 \\ \hline
+      \end{array}
+  &
+  \hspace*{1cm}
+  B = \begin{array}{|r|} \hline
+        8 \\ \hline
+        5 \\ \hline
+        7 \\ \hline
+      \end{array}
+  &
+  \hspace*{1cm}
+  C = \begin{array}{|r|r|} \hline
+        3 & 8 \\ \hline
+        12 & 5 \\ \hline
+        9 & 7 \\ \hline
+      \end{array} 
+\end{array}
+\]
+A matriz $A$, que tem apenas 1 linha, é também chamada de
+\textbf{vetor-linha}, ou simplesmente \textbf{vetor}.  A matriz $B$, que
+tem apenas 1 coluna, é também chamada de \textbf{vetor-coluna}.
+
+Em Scilab, o valor denotado por uma variável é sempre uma matriz. Em
+particular, um valor escalar, tal como $2$, $11.3$ ou \texttt{\%pi} é
+visto como uma matriz de dimensão $1\times 1$.
+
+\subsection{Criando Matrizes}
+
+Uma matriz pode ser especificada simplesmente enumerando os seus
+elementos. Em Scilab, os elementos de uma matriz devem ser especificados
+entre colchetes; elementos de uma mesma linha são separados por espaço
+ou por vírgula (\texttt{,}), e as linhas são separadas por
+mudança-de-linha ou por ponto-e-vírgula (\texttt{;}).
+
+Os exemplos a seguir ilustram os comandos Scilab para criação das 3
+matrizes \texttt{A}, \texttt{B} e \texttt{C} mostradas
+anteriormente. Digite cada um desses comandos no {\emph prompt} do
+console do Scilab e observe o resultado. Note também, na janela de
+variáveis, as dimensões das variáveis \texttt{A}, \texttt{B} e
+\texttt{C} criadas por estes comandos.
+
+\begin{lst}{text}
+-->A = [ 3  2*8-5  -7 \%pi ]
+ A =
+ 
+     3.    11.    -7.    3.1415927  
+
+-->B = [0.5; 2; 10.3] 
+ B  =
+ 
+      0.5
+      2.
+      10.3
+ 
+-->C = [ 10, 2, 5; 3, 2.3, 0.6]
+ C  =
+ 
+     10.    2.      5.
+     3.      2.3    0.6
+     
+-->D = [ 10, 2, 5; 3, 7.2]
+ D  =
+                       !-- error 6
+Inconsistent row/column dimensions
+\end{lst} 
+
+\subsubsection*{Observações}
+\begin{itemize}
+  \item O valor de um elemento da matriz pode ser especificado como uma
+  expressão arbitrária.
+  \item Cada linha da matriz deve ter o mesmo número de elementos, e
+  cada coluna deve ter o mesmo número de linhas.
+\end{itemize}  
+
+\subsection{Indexando matrizes}
+
+Uma posição em uma matriz \texttt{M} de dimensão $n\times m$ é
+identificada por um par de \emph{índices} $(i,j)$, onde $i$ é o número
+(ou índice) da linha e $j$ é o número (ou índice) da coluna desta
+posição na matriz. Por exemplo, \texttt{M(2,3)} especifica o elemnto na
+linha 2, coluna 3 da matriz \texttt{M}. Esse mecanismo de
+\emph{indexação} é ilustrado a seguir.
+
+\begin{lst}{text}
+
+--> A = [10, 20, 30]
+ A  =
+ 
+     10.     20.      30.
+
+---> x = A(1,3)        
+ x = 
+
+     30.
+
+\end{lst}
+
+A indexação de uma matriz deve ser feita de modo que os valores dos
+índices estejam compreeendidos dentro dos limtes da dimensão dessa
+matriz. Isto é, se \texttt{M} é uma matriz de dimensão $m\times n$,
+\texttt{M(i,j)} deve ser tal que $1 \leq \texttt{i} \leq n$ e
+$1 \leq \texttt{j} \leq m$. Caso contrário, é reportado um erro de
+índice inválido, como ilustra o exemplo a seguir.
+
+\begin{lst}{text}
+-->z = A(2,3)           // erro de indexação: A tem apenas 1 linha
+               ! error 21
+Invalid index
+\end{lst}
+
+A indexação em um vetor-linha pode ser feita omitindo-se o número da
+linha e especificando apenas o número da coluna do elemento desejado,
+conforme ilustrado a seguir. De maneira similar, a indexação em um
+vetor-coluna pode ser feita omitindo-se o número da coluna e
+especificando apenas o número da linha do elemento desejado.
+
+\begin{lst}{text}
+--> A = [10, 20, 30]
+ A  =
+ 
+     10.     20.      30.
+
+---> y = A(2)          
+ x = 
+
+     20. 
+
+
+---> A(3) = 45      
+A  =
+ 
+     10.     20.      45.
+\end{lst}
+
+\subsubsection*{Observações}
+\begin{itemize}
+  \item Um índice de linha ou coluna em uma matriz deve ser um valor
+  inteiro positivo, e pode ser especificado como uma expressão
+  arbitrária.
+\end{itemize}  
+
+\subsection{Obtendo as dimensões de uma matriz}
+
+As seguintes funções podem ser usadas, em Scilab, para determinar o
+número de elementos ou as dimensões de uma matriz.
+
+\begin{center}
+  \begin{tabular}{lp{8cm}} \hline
+    \textbf{função}                & \textbf{descrição}                \\\hline
+    \texttt{$n$ = length($A$)}     & número de elementos de $A$        \\\hline
+    \texttt{[$l$,$c$] = size($A$)} & número de linhas e colunas de $A$ \\\hline
+  \end{tabular}
+\end{center}
+
+Exemplo:
+\begin{lst}{scilab}
+-->A = [ 1 8 9 5; 2 3 4 0 ]
+ A  =
+ 
+    1.    8.    9.    5.  
+    2.    3.    4.    0.  
+
+-->dim = size(A)
+ dim  =
+ 
+      2.    4.  
+ 
+-->[lin,col] = size(A)
+ col  =
+ 
+    4.  
+ lin  =
+ 
+    2.  
+
+-->length(A)
+ ans  =
+
+     8.
+
+-->length(A(1,:))
+ ans  =
+ 
+      4.
+
+-->length(A(:,2))
+ans  =
+ 
+      2.
+\end{lst}
+
+\subsubsection*{Observações}
+\begin{itemize}
+  \item O resultado da expressão \texttt{(size(M)}, onde \texttt{M} é
+  uma matriz de $n$ dimensões, ($n\geq 2$) consiste de um vetor de $n$
+  valores.
+  \item O resultado de uma expressão \texttt{(size(M)} pode ser
+  atribuído a uma variável, tal como na atribuição \texttt{dim =
+    size(C)} acima.
+  \item O resultado de uma expressão \texttt{(size(M)}, onde \texttt{M}
+  é uma matriz de $n$ dimensões, pode também ser atribuído a um vetor de
+  $n$ variáveis \texttt{[$d_1$, $d_2$, \ldots, $d_n$]}, sendo que cada
+  variável $d_i$, para $1 \leq i \leq n$, irá conter o número de
+  elementos da dimensão $i$ da matriz (tal como no último exemplo
+  acima).
+\end{itemize}
+
+\newpage
+
+\section{Exemplo de aplicação}
+
+Escrever um programa em Scilab para ler uma sequência de notas digitadas
+pelo usuário, e calcular e exibir a média aritmética das notas, bem como
+a quantidade de notas que estão acima desta média. A entrada deve ser
+encerrada quando o usuário digitar um valor negativo.
+
+\begin{runexample}
+Cálculo da média
+---------------------------
+digite a nota: 6.8
+digite a nota: 9.0
+digite a nota: 8.1
+digite a nota: 4.5
+digite a nota: 7.0
+digite a nota: 1.9
+digite a nota: 6.0
+digite a nota: 10.0
+digite a nota: 6.8
+digite a nota: 7.5
+digite a nota: -1
+
+média: 6.76
+7 notas estao acima da média
+\end{runexample}
+
+\lstinput{scilab}{listings/p12/acima-media.sce}
+
+\newpage
+
+\section{Exercícios}
+
+\begin{task}{Entrada e saída de vetores}{}
+
+  Faça um programa que leia um vetor com cinco posições para números
+  reais e, depois, um código inteiro. Se o código for zero, finalize o
+  programa; se for 1, mostre o vetor na ordem direta; se for 2, mostre o
+  vetor na ordem inversa.
+
+  \begin{runexample}
+digite um elemento: 2
+digite um elemento: 4
+digite um elemento: 0
+digite um elemento: 8
+digite um elemento: 5
+
+digite o código (0, 1 ou 2): 2
+
+elementos do vetor em ordem inversa:
+5 8 0 4 2
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p12/ler-e-exibir-vetor.sce}
+\end{task}
+
+\begin{task}{Cálculo com elementos de vetores}{}
+  Codifique um programa que preencha dois vetores de seis elementos
+  através de entradas pelo teclado. Após a definição dos dois vetores,
+  construa um terceiro vetor onde cada elemento é igual ao dobro da soma
+  entre os elementos correspondentes dos outros dois vetores. Imprima o
+  conteúdo do vetor calculado.
+
+  \begin{runexample}
+digite os elementos do primeiro vetor:
+digite um elemento: 1
+digite um elemento: 2
+digite um elemento: 3
+digite um elemento: 4
+
+digite os elementos do segundo vetor:
+digite um elemento: 5
+digite um elemento: 6
+digite um elemento: 7
+digite um elemento: 8
+
+elementos do vetor calculado:
+12 16 20 24
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p12/operacao-com-vetor.sce}
+\end{task}
+
+\begin{task}{Contagem de números negativos, nulos e positivos}{}
+  Codificar um programa Scilab que leia um vetor de $n$ valores. A
+  seguir, o programa determina e exibe quantos elementos são nulos,
+  positivos e negativos.
+
+  A quantidade $n$ de elementos no vetor é determinada pelo usuário.
+  \begin{runexample}
+Digite a quantidade de elementos do vetor:5
+Início da leitura dos elementos do vetor...
+Elemento 1: 
+  digite o valor --> 10
+Elemento 2: 
+  digite o valor --> 20
+Elemento 3: 
+  digite o valor --> 30
+Elemento 4: 
+  digite o valor --> 0
+Elemento 5: 
+  digite o valor --> -13
+
+Vetor original:
+10  20  30  0  -13  
+
+Elementos nulos     --> 1
+Elementos positivos --> 3
+Elementos negativos --> 1
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p12/pos-neg-nul.sce}
+\end{task}
+
+\begin{task}{Temperaturas máximas}{}
+
+  As temperaturas máximas diárias (em $^o$F) para Chicago e São
+  Francisco durante o mês de agosto de 2009 são dadas nos vetores abaixo
+  (dados da Administração Nacional Oceânica e Atmosférica dos EUA).
+
+  \begin{minted}{scilab}
+TCH = [75 79 86 86 79 81 73 89 91 86 81 82 86 88 89 ...
+       90 82 84 81 79 73 69 73 79 82 72 66 71 69 66 66];
+
+TSF = [69 79 70 73 72 71 69 76 85 87 74 84 76 68 79 ...
+       75 68 68 81 72 79 68 68 69 71 70 89 95 90 66 69];
+  \end{minted}
+
+  Escreva um programa para determinar quantos dias, e em que datas, no
+  mês dado, a temperatura foi a mesma nas duas cidades.
+
+  \textbf{Observações:}\\
+  \begin{itemize}
+    \item Exemplificando, no quinto dia de agosto a temperatura em
+    Chicago foi de 79$^o$F, e em São Francisco foi de 72$^o$F.
+    \item Os vetores \texttt{TCH} e \texttt{TSF} já estão definidos. O
+    usuário não precisa fazer nenhuma entrada de dados.
+  \end{itemize}
+
+  \begin{runexample}
+Datas em que ocorreram a mesma temperatura:  2 19 30
+Quantidade de dias que ocorreram a mesma temperatura: 3
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p12/temperaturas.sce}
+\end{task}
+
+% \begin{task}{Pesquisa de notas de alunos}{}
+%   Nesta tarefa você desenvolverá uma aplicação para pesquisar a nota de
+%   um aluno.
+
+%   Codifique um programa que defina por atribuição os vetores
+%   \texttt{aluno} e \texttt{notasBCC701} abaixo:
+
+% \begin{verbatim}
+% aluno = [ "Peny" "Rajesh Koothrappali" "Sheldon Cooper" ...
+%           "Howard Wolowitz" "Leonard Hofstadter" ]
+
+% notasBCC701 = [ 6.0 8.5 10.0 9.0 9.5 ]
+% \end{verbatim}
+
+%   Observe que os vetores possuem um relacionamento através de suas
+%   posições correspondentes. Assim, o nome que estiver armazenado no
+%   vetor \texttt{aluno}, na posição \texttt{k}, possui a nota armazenada
+%   na posição correspondente \texttt{k} do vetor \texttt{notasBCC701}.
+
+%   O programa solicita ao usuário um determinado nome, e a seguir,
+%   imprime sua respectiva nota na disciplina BCC701.
+
+%   \begin{runexample}
+% Informe o nome do aluno: Howard Wolowitz
+% Nota em BCC701: 9.0
+%   \end{runexample}
+
+%   \tcblower
+%   \solution
+%   \lstinput{scilab}{listings/p12/pesquisa-nota.sce}
+% \end{task}
+
+
+\end{document}

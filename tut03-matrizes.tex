@@ -1,0 +1,641 @@
+% compile with
+%   pdflatex --shel-escape p02-variaveis
+% or
+%   latexmk -pvc -pdf -latexoption=--shell-escape p02-variaveis
+%
+%!TEX encoding = UTF-8
+
+\documentclass[11pt,fleqn]{practice}
+
+%\usepackage[american voltages]{circuitikz}
+\usepackage{cancel}
+
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Tutorial}
+\title{Introdução a Matrizes }
+% \author{Jos?� Romildo Malaquias\thanks{\url{romildo@iceb.ufop.br}}}
+\date{2013--2}
+\maketitle
+
+\begin{abstract}
+  Neste tutorial você irá aprender como criar \textbf{matrizes}, como realizar operações 
+  aritméticas básicas sobre matrizes  e como usar algumas funções sobre matrizes. 
+ % Você irá também desenvolver alguns programas simples para resolver
+%  problemas que envolvem o uso de matrizes. Finalmente, você irá também aprender como 
+%  \textbf{ler e armazenar dados em arquivos} e também um pouco mais gráficos.
+
+\end{abstract}
+
+\tableofcontents
+
+\section{Matrizes}
+
+A unidade fundamental de dados em Scilab é uma \textbf{matriz}. Uma matriz é semelhante a uma tabela, exceto que uma matriz pode ter qualquer número de dimensões, enquanto uma tabela tem apenas 2 dimensões, que usualmente são chamadas de linhas e colunas.  Por exemplo, as matrizes $A$, $B$ e $C$, a seguir,  têm dimensões $1\times 5$, $3\times 1$ e $3\times 2$, respectivamente: 
+\[ \begin{array}{lll}
+A = \begin{array}{|r|r|r|r|r|} \hline 3 & 5 & 7 & 12 & 9 \\ \hline  \end{array} & \hspace*{1cm}
+B = \begin{array}{|r|} \hline 8 \\ \hline 5 \\ \hline 7 \\ \hline \end{array}  & \hspace*{1cm}
+C = \begin{array}{|r|r|} \hline 3 & 8 \\ \hline 12 & 5 \\ \hline 9 & 7 \\ \hline \end{array} 
+\end{array}
+\]
+A matriz $A$, que tem apenas 1 linha, é também chamada de \textbf{vetor-linha}, ou simplesmente \textbf{vetor}.  A matriz $B$,  que tem apenas 1 coluna, é também chamada de \textbf{vetor-coluna}.  
+
+Em Scilab, o valor denotado por uma variável é sempre uma matriz. Em particular,  um valor escalar, 
+tal como $2$, $11.3$ ou \texttt{\%pi} é visto como uma matriz de dimensão $1\times 1$.
+
+\subsection{Criando Matrizes}
+
+Uma matriz pode ser especificada simplesmente enumerando os seus elementos. Em Scilab, os elementos de uma matriz devem ser especificados entre colchetes; elementos de uma mesma linha
+são separados por espaço ou vírgula (\texttt{,}), e as linhas sãoseparadas por ponto-e-vírgula (\texttt{;}).
+
+Os exemplos a seguir ilustram os comandos Scilab para criação das 3 matrizes \texttt{A}, \texttt{B} e \texttt{C} acima. Digite cada um desses comandos no {\emph prompt} do console do Scilab e observe o resultado. Note também, na janela de variáveis, as dimensões das variáveis \texttt{A}, \texttt{B} e \texttt{C} criadas por estes comandos.
+
+\begin{lst}{text}
+-->A = [ 3  2*8-5  -7 \%pi ]
+ A =
+ 
+     3.    11.    -7.    3.1415927  
+
+-->B = [0.5; 2; 10.3] 
+ B  =
+ 
+      0.5
+      2.
+      10.3
+ 
+-->C = [ 10, 2, 5; 3, 2.3, 0.6]
+ C  =
+ 
+     10.    2.      5.
+     3.      2.3    0.6
+     
+-->D = [ 10, 2, 5; 3, 7.2]
+ D  =
+                       !-- error 6
+Inconsistent row/column dimensions
+\end{lst} 
+
+\textbf{OBSERVAÇÕES}
+\begin{itemize}
+\item O valor de um elemento da matriz pode ser especificado como uma expressão arbitrária.
+\item Cada linha da matriz deve ter o mesmo número de elementos, 
+e cada coluna deve ter o mesmo número de linhas.
+\end{itemize}  
+
+\subsection{Indexando Matrizes}
+
+Uma posição em uma matriz \texttt{M} de dimensão $n\times m$ é identificada por par de \emph{índices} $(i,j)$, onde $i$ é o número (ou índice) da linha e $j$ é o número (ou índice) da coluna desta posição na matriz. Por exemplo, \texttt{M(2,3)} especifica o elemnto na linha 2, coluna 3 da matriz \texttt{M}. Esse mecanismo de \emph{indexação} é ilustrado a seguir. 
+
+\begin{lst}{text}
+
+--> A = [10, 20, 30]
+ A  =
+ 
+     10.     20.      30.
+
+---> x = A(1,3)        
+ x = 
+
+     30.
+
+\end{lst}
+
+A indexação de uma matriz deve ser feita de modo que os valores dos índices estejam compreeendidos dentro dos limtes da dimensão dessa matriz. Isto é, ee \texttt{M} é uma matriz de dimensão $m\times n$, \texttt{M(i,j)} deve ser tal que  $1 \leq \texttt{i} \leq n$ e  $1 \leq \texttt{j} \leq m$. Caso contrário, é reportado um erro de inde inválido, como ilustra o exemplo a seguir.
+
+\begin{lst}{text}
+
+-->z = A(2,3)           // erro de indexação: A tem apenas 1 linha
+               ! error 21
+Invalid index
+
+\end{lst}
+
+A indexação em um vetor de linha pode ser feita omitindo-se o número da linha e especificando apenas o número da coluna do elemento desejado, conforme ilustrado a seguir.
+ 
+\begin{lst}{text}
+
+--> A = [10, 20, 30]
+ A  =
+ 
+     10.     20.      30.
+
+---> y = A(2)          
+ x = 
+
+     20. 
+
+
+---> A(3) = 45      
+A  =
+ 
+     10.     20.      45.
+
+\end{lst}
+
+O mecanismo de indexação pode também ser usado para acesso a submatrizes de uma matriz, conforme descrito na tabela a seguir.
+
+\begin{center}
+  \begin{tabular}{lp{11cm}} \hline
+    \textbf{operação} & \textbf{descrição} \\\hline
+    \texttt{$A$(:,$n$)} & vetor-coluna de todos os elementos da coluna $n$ da matriz $A$ \\\hline
+    \texttt{$A$($n$,:)} & vetor-linha de todos os elementos da linha $n$ da matriz $A$ \\\hline
+    \texttt{$A$(:,$n$:$m$)} & submatriz de $A$, com todos os elementos das colunas $n$ a $m$\\\hline         
+    \texttt{$A$($n$:$m$,:)} & submatriz de $A$ com todos os elementos das linhas $n$ a $m$\\\hline
+    \texttt{$A$($n$:$m$,$p$:$q$)} & submatriz de $A$ com todos os elementos das linhas $n$ a $m$ e  colunas $p$ a $q$ \\\hline
+  \end{tabular}
+\end{center}
+
+Exemplos: 
+
+
+\begin{lst}{text}
+
+-->B = [ 10, 2, 5, 7; 3,  12,  8, 15]    
+ B  =
+ 
+     10.    2.      5.    7.
+     3.     12.     8.    15.
+     
+-- > C = B(2,:)         // seleciona todos os elementos da lin 2
+ C  =
+ 
+     3.     12.     8.    15.
+
+--> D = B(:,3)          // seleciona todos os elementos da col 3
+D  =
+ 
+     5.
+     8.
+
+--> E = B(1,2:3)       // seleciona os elementos da lin 1, cols 2 e 3 
+D  =
+ 
+     2.     5. 
+
+-->B(1,2:3) = [ 4, 6]  // modifica os elementos da lin1, cols 2 e 3
+ B  =
+ 
+     10.    4.      6.    7.
+     3.     12.     8.    15.
+
+\end{lst}
+
+\textbf{OBSERVAÇÕES}
+\begin{itemize}
+\item Um índice de linha ou coluna em uma matriz deve ser um valor inteiro positivo, 
+e pode ser especificado como uma expressão arbitrária.
+\end{itemize}  
+
+\subsection{Obtendo as Dimensões de uma Matriz}
+
+As seguintes funções podem ser usadas, em Scilab, para determinar o número de elementos ou as dimensões de uma matriz. 
+
+\begin{center}
+  \begin{tabular}{lp{8cm}} \hline
+    \textbf{função} & \textbf{descrição} \\\hline
+    \texttt{$n$ = length($A$)} & número de elementos da $A$ \\\hline
+    \texttt{[$l$,$c$] = size($A$)} & número de linhas e colunas de $A$ \\\hline
+  \end{tabular}
+\end{center}
+
+Exemplo:
+\begin{lst}{scilab}
+-->A = [ 1 8 9 5; 2 3 4 0 ]
+ A  =
+ 
+    1.    8.    9.    5.  
+    2.    3.    4.    0.  
+
+-->dim = size(A)
+ dim  =
+ 
+      2.    4.  
+ 
+-->[lin,col] = size(A)
+ col  =
+ 
+    4.  
+ lin  =
+ 
+    2.  
+
+-->length(A)
+ ans  =
+
+     8.
+
+-->length(A(1,:))
+ ans  =
+ 
+      4.
+
+-->length(A(:,2))
+ans  =
+ 
+      2.
+
+\end{lst}
+
+
+\textbf{OBSERVAÇÕES}
+\begin{itemize}
+\item O resultado da expressão \texttt{(size(M)}, onde \texttt{M} é uma matriz de $n$ dimensões, ($n\geq 2$) consiste de um vetor de $n$ valores.
+\item O resultado de uma expressão \texttt{(size(M)} pode ser atribuído a uma variável, tal como 
+na atribuição \texttt{dim = size(C)} acima.
+\item O resultado de uma expressão \texttt{(size(M)}, onde \texttt{M} é uma matriz de $n$ dimensões, pode também ser atribuído a um vetor de $n$ variáveis \texttt{[$d_1$, $d_2$, \ldots, $d_n$]}, sendo que cada variável $d_i$, para $1 \leq i \leq n$, irá conter o número de elementos da dimensão $i$ da matriz (tal como no último exemplo acima).
+\end{itemize}  
+
+\pagebreak
+\subsection{Criando Matrizes com Valores Incrementados Linearmente}
+
+Os valores de uma linha de uma matriz podem ser também especificados usando-se a notação \texttt{vi:inc:vf},  que representa todos os valores de \texttt{vi} até \texttt{vf}, em incrementos de \texttt{incr}, ou seja, representa todos os valores $\texttt{vi} \leq \texttt{vi} + n .\texttt{incr} \leq \texttt{vf}$, para $n\in \mathbb{N}$. O uso dessa notação é ilustrado pelos exemplos a seguir.
+Digite cada um deles no console do Scilab e observe o resultado.
+
+\begin{lst}{text}
+-->E = [0:2:8]
+ E =
+ 
+     0.     2.    4.    6.    8.
+     
+-->F = [3: 0.3: (2*2+1)]
+ F  =
+ 
+      3.     3.3    3.6    3.9    4.2    4.5    4.8
+      
+-->G = [3:0.3:2]
+ G  =
+ 
+     [ ]
+
+-->H = [-2:2:4; 1:-3:-8]
+ H  =
+ 
+     -2.     0.     2.    4.  
+       1.   -2.   -5.  -8.
+\end{lst}
+
+
+\textbf{OBSERVAÇÕES}
+\begin{itemize}
+\item Os valores de  \texttt{<vi>},  \texttt{<vf>} e \texttt{<incr>} podem ser quaisquer valores numéricos (positivos ou negativos) e podem ser especificados como uma expressão arbitrária. 
+\item O \texttt{<incr>}  pode ser omitido, sendo, neste caso, entendido como tendo o valor 1.
+\item Se $\texttt{incr} > 0$ e $\texttt{vf} < \texttt{vi}$, ou se $\texttt{incr} < 0$ e $\texttt{vf} > \texttt{vi}$, a matriz criada possuirá 0 elementos. 
+\end{itemize}
+
+De maneira similar, a função \texttt{linspace} também pode ser usada para criar um vetor de elementos linearmente incrementado. A expressão \texttt{linspace(vi,vf,n)} retorna um vetor com \texttt{n} elementos linearmente espaçados, no intervalo fechado \texttt{vi} a \texttt{vf}, tal como ilustrado  
+a seguir.
+
+\begin{lst}{text}
+-->K = linspace(3,15,5)  // vetor de 5 elementos linearmente espaçados
+ K =
+ 
+     3.     6.    9.    12.    15.
+ \end{lst}
+
+\subsection{Outras Funções Úteis para Criar Matrizes}
+
+Os exemplos a seguir ilustram o uso de outras funções, pré-definidas em Scilab, que são para criar matrizes. O significado de cada uma poderá ser facilmente compreendido por meio desses exemplos.
+
+\begin{lst}{text}
+-->Z = zeros(2,3)  //  matriz 2x3 de 0s
+ Z =
+ 
+     0.     0.    0.
+     0.     0.    0.
+
+-->O = ones(2,3)  //  matriz 2x3 de 1s
+ O =
+ 
+     1.     1.    1.
+     1.     1.    1.
+
+-->D = eye(3,3)  //  matriz diagonal 3x3 de 1s
+ D =
+ 
+     1.     0.    0.
+     0.     1.    0.
+     1.     0.    1.
+ \end{lst}
+
+\subsection{Criando Matrizes a partir de Sub-Matrizes}
+
+Uma matriz pode ser também criada a partir de matrizes já definidas, como ilustram os exemplos a seguir.
+
+\begin{lst}{text}
+-->A = [0:2:6]
+ A =
+ 
+     0.     2.     4.     6. 
+     
+-->B = [A; 1:4]          // a linha 1 da matriz B é a matriz A
+ B =
+ 
+     0.     2.     4.     6. 
+     1.     2.     3.     4.
+
+\end{lst}
+
+\subsection{Exercícios - Criando e Indexando Matrizes}
+
+Digite, no console Scilab, comandos apropriados para realizar as tarefas indicadas a seguir.
+
+\begin{enumerate}
+
+\item Criar as seguintes matrizes:
+\[ \begin{array}{lll}
+A = \begin{array}{|r|r|} \hline 2 & 6 \\ \hline  3 & 9 \\ \hline  \end{array} & \hspace*{1cm}
+B = \begin{array}{|r|r|} \hline 1 & 2 \\ \hline 3 &  4 \\ \hline  \end{array}  & \hspace*{1cm}
+C = \begin{array}{|r|r|} \hline 8 & 5 \\ \hline 5 & 3 \\ \hline \end{array} 
+\end{array}
+\]
+
+\item Criar a partir das matrizes $A$, $B$, e $C$ acima, a seguinte matriz:
+\[ \begin{array}{l}
+D = \begin{array}{|r|r|r|r|r|r|} \hline 
+        2 & 6 & 0 & 0 & 0 & 0 \\ \hline 
+        3 & 9 & 0 & 0 & 0 & 0 \\ \hline  
+        0 & 0 & 1 & 2 & 0 & 0 \\ \hline  
+        0 & 0 & 3 & 4 & 0 & 0 \\ \hline  
+        0 & 0 & 0 & 0 & 8 & 5 \\ \hline  
+        0 & 0 & 0 & 0 & 5 & 3 \\ \hline  
+\end{array} 
+\end{array}
+\]
+
+\item Criar uma matriz $E$ que seja obtida retirando-se a última linha e a última coluna de $D$.
+\item Modificar o valor do elemento da posição $(2,3)$ da matriz $E$ para $7$.
+\item Criar uma matriz $F$, obtida extraindo-se de $E$ a primeira submatrix $4 \times 4$.
+\item Modificar o valor na posição $(1,2)$ de $F$, de maneira que ele seja igual ao dobro da soma dele próprio com o valor que está na posição $(6,6)$ de $D$.
+
+\end{enumerate}
+
+\section{Operações sobre Matrizes}
+
+Como Scilab é uma linguagem particularmente voltada para computações científicas e nas áreas de engenharia, a linguagem dispõe de diversos operadores e funções para operar sobre matrizes. As mais usuais são ilustradas a seguir.
+
+\subsection{Aplicação de funções a matrizes}
+
+Funções usuais sobre números, como, por exemplo, as funções \texttt{abs}, \texttt{sqrt}, \texttt{log}, \texttt{sin} e \texttt{cos}, também podem ser aplicadas a matrizes de valores numéricos. Nesse caso, elas operam sobre cada um dos elementos da matriz, de maneira independente.
+
+Exemplo:
+\begin{lst}{scilab}
+-->X = [0 %pi/2 %pi 3*%pi/2 2*%pi]
+ X  =
+ 
+    0.    1.5707963    3.1415927    4.712389    6.2831853  
+ 
+-->Y = sin(X)
+ Y  =
+ 
+    0.    1.    1.225D-16  - 1.  - 2.449D-16  
+\end{lst}
+
+\subsection{Transposição}
+
+A operação de transposição de uma matriz $A$ pode ser realizada, em Scilab, por meio da operação  \texttt{$A$'}, conforme ilustrado a seguir. O exemplo ilustra atmbém a criação de uma matriz a partir de uma submatriz obtida usando esta operação
+
+Exemplo:
+\begin{lst}{scilab}
+-->A = [ 1 8 9 5; 2 3 4 0 ]
+ A  =
+ 
+    1.    8.    9.    5.  
+    2.    3.    4.    0.  
+ 
+-->A'
+ ans  =
+ 
+    1.    2.  
+    8.    3.  
+    9.    4.  
+    5.    0.
+
+-->B = [A'  (0:2:6)]     // as 2 primeiras cols de B são a transposta de A        
+ D  =
+ 
+     1.     2.     0.
+     8.     3.     2.
+     9.     4.     4.
+     5.     0.     6.
+\end{lst}
+
+
+\subsection{Operações entre matrizes e escalares}
+
+Os operadores aritméticos abaixo podem ser usados para realizar uma
+operação aritmética entre um escalar $k$ e cada elemento de uma matriz $A$. 
+Nos exemplos apresentados na tabela, considere que \texttt{M} é a matriz \texttt{[2, 4, 6; 5, 3, 1]}:
+\begin{center}
+  \begin{tabular}{p{2cm}lp{9cm}} \hline
+    \textbf{operação} & \textbf{descrição} & \textbf{exemplo} \\\hline
+    \texttt{$k$ + $A$}\newline \texttt{$A$ + $k$}  & adição & \texttt{M + 2 = [4, 6, 8; 7, 3, 1]} \\\hline
+    \texttt{$k$ - $A$}\newline \texttt{$A$ - $k$}  & subtração & \texttt{M - 1 = [1, 3, 5 ;4, 2, 0]} \\\hline
+    \texttt{$k$ * $A$}\newline \texttt{$A$ * $k$}  & multiplicação & \texttt{M * 2 = [4, 6, 8; 7, 3, 1]} \\\hline
+    \texttt{$A$ / $k$}\newline \texttt{$k$ ./ $A$}  & divisão & \texttt{M / 2 = [1, 2 ,3; 2.5, 1.5, 0.5]}\newline  \texttt{2 ./ M = [1., 0.5, 0.333; 0.4, 0..6666, 2.]} \\\hline
+    \texttt{$k$ .\textasciicircum $A$}\newline \texttt{$A$ .\textasciicircum\ $k$}  & potenciação & \texttt{M .\textasciicircum 2 = [4, ,16, 36; 25, 9, 1]}\newline \texttt{2 .\textasciicircum M = [4, ,16, 64; 32, 8, 2]} \\\hline
+  \end{tabular}
+\end{center}
+
+Exemplo:
+\begin{lst}{scilab}
+-->m = [3:6; 3:-1:0]
+ m  =
+ 
+    3.    4.    5.    6.  
+    3.    2.    1.    0.  
+ 
+-->(m.^2 - 1) / 2
+ ans  =
+ 
+    4.    7.5    12.    17.5  
+    4.    1.5    0.   - 0.5
+\end{lst}
+
+\subsection{Operações matriciais elemento a elemento}
+
+Os operadores aritméticos abaixo podem ser usados para realizar uma
+operação aritmética entre duas matrizes $A$ e $B$, de mesma dimensão,
+\emph{elemento a elemento}. Nos exemplos da tabela, considera-se que 
+\texttt{M = [2, 4, 6; 5, 3, 1]} e \texttt{N = [1, 2, 3; 4, 5, 6]}  
+\begin{center}
+  \begin{tabular}{llp{9cm}} \hline
+    \textbf{operação} & \textbf{descrição} & \textbf{exemplo}\\\hline
+    \texttt{$A$ + $B$} & adição & \texttt{M + N = [3, 6, 9; 9, 8, 7]}\\\hline
+    \texttt{$A$ - $B$} & subtração & \texttt{M - N = [1, 2, 3; 1, -2, -5]} \\\hline
+    \texttt{$A$ .* $B$} & multiplicação & \texttt{M .* N = [2, 8, 18; 20, 15, 6]}\\\hline
+    \texttt{$A$ ./ $B$} & divisão & \texttt{M ./ N = [2., 2., 2.; 1.25, 0.6, 0.1666]}\\\hline
+    \texttt{$A$ .\textasciicircum\ $B$} & potenciação & \texttt{M .\textasciicircum\ N = [2, 16, 729; 1024, 125, 6]} \\\hline
+  \end{tabular}
+\end{center}
+
+Exemplos:
+\begin{lst}{scilab}
+-->A = [3:6; 3:-1:0]
+ A  =
+ 
+    3.    4.    5.    6.  
+    3.    2.    1.    0.  
+ 
+-->B = [0:3; 1 5 2 0]
+ B  =
+ 
+    0.    1.    2.    3.  
+    1.    5.    2.    0.  
+
+-->A .^ B + A .* (2*eye(2,4))
+ ans  =
+ 
+    7.    4.     25.    216.  
+    3.    36.    1.     1.    
+\end{lst}
+
+%-->C = 2*eye(2, 4)
+%C  =
+% 
+%    2.    0.    0.    0.  
+ %   0.    2.    0.    0.  
+% 
+
+\subsection{Operações matriciais}
+
+Além da adição (\texttt{$A$+$B$}) e da subtração (\texttt{$A$-$B$}), descritas anteriormente, também estão definidos outros operadores matriciais em Scilab alguns deles relacionados na tabela a seguir. 
+
+A notação \texttt{$A$*$B$}, em Scilab, denota a multiplicação de matrizes $A\times B$. Se as dimensões de $A$ e $B$ são, respectivamente,  ($n\times k$)  e ($k \times m$), o resultado é uma matriz $AB$, de dimensão ($n\times m$), definida por:
+\[ AB_{ij} = \sum_{i=1}^k A_{ik}\, B_{kj} \]
+A notação \texttt{$A$/$B$} denota a divisão da matriz $A$ pela matriz $B$, definida como
+ \[ \texttt{$A$/$B$} = A \times  (1/B) = A \times B^{-1} \]
+Lembre-se que a matriz inversa de uma matriz quadrada $A$ -- $A^{-1}$ (ou $1/A$) -- pode ser definida por $A^{-1}\times A = A \times A^{-1} = \mathbf{I}$, onde $\mathbf{I}$ é a matriz identidade de mesma dimensão que $A$.
+
+A notação \texttt{$A$ \textasciicircum\ $k$}, onde $k$ é um escalar, denota a multiplicação da matriz $A$ por ela mesma $k$ vezes.\footnote{Não confundir esta operação com a operação  \texttt{$A$ .\textasciicircum\ $k$}, que significa elevar cada um dos elemento de $A$ a $k$}. é claro que, para que essa operação seja definida, $A$ deve ser uma matriz quadrada, isto é, de dimensão ($n \times n$)
+
+Nos exemplos da tabela a seguir, considere que \texttt{M=[4 5; 5 4]} e \texttt{N=[1, 2; 3, 4]}.
+\begin{center}
+  \begin{tabular}{llp{9cm}} \hline
+    \textbf{operação} & \textbf{descrição} & \textbf{exemplo}\\\hline
+     \texttt{$A$ * $B$} & multiplicação & \texttt{M * N = [14, 13; 32, 31 ]} \\\hline
+    \texttt{$A$ / $B$} & divisão & \texttt{M * N = [-0.5, 1.5; -4, 3]} \\\hline
+    \texttt{$A$ \textasciicircum\ $k$} & exponenciação & \texttt{M \textasciicircum\ 6 = [7, 10; 15, 22 ]}  \\\hline
+  \end{tabular}
+\end{center}
+
+Exemplos:
+\begin{lst}{scilab}
+-->A = [ 1 , 2; 3, 4 ]
+ A  =
+ 
+    1.    2.  
+    3.    4.  
+ 
+-->B = [2, 2; 1, 0]
+ B  =
+ 
+    2.    2.  
+    1.    0.  
+ 
+-->C = A * B
+ C  =
+ 
+    4.     2.  
+    10.    6.  
+
+-->D = A ^ 2  // D = A * A
+ D  =
+ 
+    7.     10.
+    15.    22.
+
+\end{lst}
+
+\begin{lst}{scilab}  
+-->E = B^(-1)   // E = inversa de B
+ E  =
+ 
+    0.     1. 
+    0.5  - 1.
+ 
+-->B * B^(-1)   // o produto de B pela sua inversa 
+ ans  =
+ 
+    1.    0.  
+    0.    1.  
+\end{lst}
+
+\subsection{Algumas funções úteis sobre matrizes}
+
+\begin{center}
+  \begin{tabular}{p{4cm}p{8cm}} \hline
+    \textbf{função} & \textbf{descrição} \\\hline
+    \texttt{sum($A$)} & soma dos elementos de $A$ \\\hline
+    \texttt{prod($A$)} & produto dos elementos de $A$ \\\hline
+    \texttt{mean($A$)} & média dos elementos de $A$ \\\hline
+    \texttt{$mx$ = max($A$)} \newline \texttt{[$mx$, $i$] = max($A$)} & $mx$ é valor máximo em $A$ e \newline $i$ é a posição em esse valor ocorre \\\hline
+    \texttt{$mn$ = mean($A$)} \newline \texttt{[$mn$, $i$] = min($A$)} & $mn$ é valor mínimo em $A$ e \newline $i$ é a posição em esse valor ocorre \\\hline
+   \texttt{gsort($A$)} & retorna a matriz que contém exatamente os mesmos elementos que $A$, ordenados em ordem decrescente. 
+  \end{tabular}
+\end{center}
+
+Exemplo:
+\begin{lst}{scilab}
+-->A = [ 1 8 9 5; 2 3 4 0 ]
+ A  =
+ 
+    1.    8.    9.    5.  
+    2.    3.    4.    0.  
+ 
+-->sum(A)
+ ans  =
+
+    32.
+
+-->mean(A)
+ ans  =
+
+     4.
+
+-->gsort(A)
+ ans  =
+
+    9.     5.    3.   1.
+    8.     4.    2.   0.
+
+\end{lst}
+
+\subsection{Exercício - Operações sobre matrizes}
+
+\begin{enumerate}
+
+\item A tabela abaixo apresenta dados de temperaturas média, mínima e máxima, em Belo Horizonte, durante os 12 meses do ano. Represente esses dados em uma matriz, no seu programa, e escreva os trechos de código para calcular e imprimir os dados a seguir. 
+\begin{center}
+\begin{tabular}{lrrrrrrrrrrrr} 
+   \multicolumn{13}{c}{Temperaturas em BH} \\\hline
+   mês      & jan & fev & mar & abr & mai & jun & jul & ago & set & out & nov & dez \\\hline
+   med & 22.9 & 22.6 & 21.6 & 20.2 & 18.2 & 17.1 & 17.7 & 19.3 & 21.0 & 21.9 & 22.5 & 21.5 \\
+   min  & 17.3 & 17.0 & 16.4 & 14.4 & 11.8 & 10.0 & 10.2 & 12.3 & 14.8 & 16.3 & 17.0 & 16.1 \\
+   max & 28.9 & 28.3 & 27.5 & 26.1 & 24.7 & 24.3 & 25.2 & 26.4 & 27.3 & 27.5 & 27.2 & 27
+\end{tabular}
+\end{center}
+
+\begin{enumerate} 
+   \item A temperatura mínima do mês de agosto
+   \item A diferença entre a temperatura mínima do mês de julho e a temperatura máxima do mês de janeiro.
+   \item As temperaturas médias de todos os meses
+   \item As temperaturas média, mínima e máxima do mês de março
+   \item As temperaturas mínima e máxima dos meses de inverno (jun, jul, ago)
+   \item Um vetor-linha com as temperaturas média, mínima e máxima de novembro
+   \item As diferenças entre as temperaturas correspondentes dos meses de abril e setembro
+   \item A diferença entre a maior temperatura máxima e a menor temperatura mínima
+   \item Os meses em que ocorrem a maior e a menor temperatura 
+   \item A temperatura média anual
+\end{enumerate}
+
+\emph{Observação\/}: Uma maneira simples de imprimir uma matriz (sem formatação) é usando o comando \texttt{disp}. Por exemplo, \texttt{disp(A)} imprime todos os elementos da matriz \texttt{A}, em formato semelhante ao apresentado no console do Scilab quando se digita $A$ no prompt do comando.
+
+\end{enumerate}
+
+%\section{Lendo e Imprimindo Matrizes}
+
+
+\end{document}

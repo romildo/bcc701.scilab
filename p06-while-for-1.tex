@@ -1,0 +1,266 @@
+\documentclass[11pt,fleqn]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 6}
+\title{Comandos de repetição --- \textbf{while}}
+\author{}
+\date{2014--2}
+\maketitle
+
+\begin{abstract}
+Nesta aula vamos trabalhar com problemas cuja solução envolve realizar 
+um cálculo ou tarefa repetidas vezes, enquanto uma determinada
+condição é satisfeita. Em outras palavras, a implementação da solução
+de tais problemas requer o uso de um comando de repetição, tal como o
+comando \textbf{while}.
+\end{abstract}
+
+\tableofcontents
+
+\section{Comandos de repetição - \texttt{while}}
+
+A solução de diversos problemas, em computação, envolve a
+\emph{repetição\/} de uma sequência de tarefas, ou comandos, enquanto
+uma determinada \emph{condição\/} é satisfeita. Esse processo de
+repetição, ou \emph{loop}, é implementado por meio do comando
+\textbf{while}, que tem a seguinte sintaxe:
+
+\begin{tabbing} xxxxxxxxxxxxxxxx\=ifxx\= \+\kill
+      \textbf{while}  \emph{condição}  \textbf{do}\\
+	   \>\emph{bloco de comandos  while} \\
+     \textbf{end}
+\end{tabbing}
+
+A \emph{condição} deve ser uma expressão \emph{booleana}, isto é, cujo 
+valor é verdadeiro (\texttt{\%t}) ou é falso (\texttt{\%f}). O bloco
+de comandos é qualquer sequência de comandos, incluindo,
+possivelmente, comandos de atribuição, de entrada e saída, de desvio
+ou outros comandos de repetição.
+
+A execução de um comando \textbf{while} é feita do seguinte modo: 
+\begin{enumerate}
+\item a \emph{condição\/} do \texttt{while} é avaliada; 
+\item se a condição avalia como \texttt{\%t} (verdadeira), o
+\emph{bloco de comandos while\/} é executado, e volta-se ao passo 1;
+\item caso contrário, isto é, se a \emph{condição\/} avalia para
+\texttt{\%f} (falso), comando \texttt{while} termina. A execução do
+programa prossegue a partir do comando imediatamente subsequente ao
+\texttt{end} do comando while.
+\end{enumerate}
+
+Note que, se a condição for inicialmente falsa, isto é, se o resultado 
+for \texttt{\%f} na primeira vez em que a condição é avaliada, o bloco 
+de comandos while não é executado nenhuma vez. Por outro lado, se o
+valor da condição permanece sempre verdadeiro, em cada iteração do
+comando while, a execução desse comando prossegue indefinidamente.
+
+\section{Exemplos}
+
+\subsection{Exibindo uma sequência de números naturais}
+
+Escrever uma aplicação para exibir a sequência dos números naturais
+menores que 25, usando a estrutura de repetição while.
+
+\begin{runexample}
+Contagem dos número naturais até 25:
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+\end{runexample}
+
+O comando para exibir o número deverá ser escrito uma única vez no
+programa, dentro de um comando de repetição, e ele será repetido várias
+vezes. Em cada repetição ele exibirá um número diferente. Isto só será
+possível se usarmos uma variável para armazenar o número a ser exibido,
+e a cada repetição o valor da variável for modificado.
+
+Assim para resolvermos este problema será usada uma variável para fazer
+a contagem dos números naturais de 0 até 25. Chamaremos esta variável de
+\texttt{contador}. O valor desta variável será exibido dentro do comando
+de repetição.
+\begin{itemize}
+  \item O valor inicial da variável deverá ser 1, o primeiro valor a ser
+  exibido.
+  \item A cada repetição o valor da variável deverá ser incrementado em
+  uma unidade, ou seja, \texttt{contador} receberá um novo valor igual
+  ao seu successor do seu valor atual.
+\end{itemize}
+O corpo do comando de repetição deverá ser executado enquando a variável
+\texttt{contador} estiver dentro do intervalo desejado. Logo a teste a
+ser usado no comando while deve verificar se \texttt{contador} é menor
+ou igual a 25.
+
+Com estas considerações, chegamos ao seguinte programa:
+\lstinput{scilab}{listings/p06/contagem.sce}
+
+
+\pagebreak
+\section{Resolvendo problemas}
+
+\begin{task}[breakable]{Contagem dos números pares}{}
+  Escreva um programa para exibir os números naturais pares dentro de um
+  intervalo. O usuário deverá informar os limites do intervalo.
+
+  Não é necessário fazer a validação da entrada: assumiremos que o
+  usuário é inteligente o suficiente para digitar valores corretos.
+
+  \begin{runexample}
+ontagem dos número naturais pares
+==================================
+limite inferior do intervalo: 10
+limite superior do intervalo: 25
+10 12 14 16 18 20 22 24 
+==================================
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p06/contagempares.sce}
+\end{task}
+
+\newpage
+\begin{task}[breakable]{Cálculo da média aritmética}{}
+  Escreva um programa para calcular a média aritmética das notas obtidas
+  pelos alunos de \emph{Programação de Computadores}. O usuário deverá
+  primeiramente informar a quantidade de alunos da turma, e em seguida a
+  nota obtida por cada aluno. Então o programa deve calcular e exibir a
+  média aritmética das notas, caso o número de alunos seja positivo.
+
+  \begin{runexample}
+Cálculo da média aritmética das notas
+=====================================
+
+Informe a quantidade de alunos na turma: 0
+
+
+Não há alunos na turma
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo da média aritmética das notas
+=====================================
+
+Informe a quantidade de alunos na turma: 5
+
+Informe a nota do aluno: 9.4
+Informe a nota do aluno: 5
+Informe a nota do aluno: 6.5
+Informe a nota do aluno: 7.5
+Informe a nota do aluno: 2.6
+
+Média calculada: 6.20
+  \end{runexample}
+
+  \textbf{Dicas:}\newline
+  \begin{itemize}
+    \item Use uma variável para armazenar o número total de alunos da
+    turma.
+    \item Use uma variável para calcular a soma das notas dos alunos. O
+    seu valor inicial deve ser 0 (o elemento neutro da adição).
+    \item Use uma variável para fazer a contagem dos alunos. O seu valor
+    inicial deverá ser 1. Esta variável será usada para controlar as
+    repetições.
+    \item No corpo do comando de repetição:
+    \begin{itemize}
+      \item leia a nota de um aluno, armazenando-a em uma variável,
+      \item atualize a variável da soma para acrescentar o nota lida à
+      soma já calculada, e
+      \item atualize a variavel contadora, para indicar que mais uma
+      nota foi processada.
+    \end{itemize}
+    \item Após a finalização da entrada das notas, verifique se a
+    quantidade de alunos realmente é positiva. Neste caso calcule e
+    exiba a média. Caso contrário exiba uma mensagem adequada.
+  \end{itemize}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p06/mediaaritmetica.sce}
+\end{task}
+
+\newpage
+\begin{task}[breakable]{Portaria da festa Baranga 2014}{}
+  No ginásio da UFOP ocorrerá a festa Baranga 2014/2. O ingresso
+  masculino será de R\$ 12,50 e o feminino será de R\$ 7,40.  Um calouro
+  ficou encarregado de operar um programa na portaria do ginário para
+  controlar o acesso das pessoas à festa. O programa é executado da
+  seguinte forma:
+  \begin{enumerate}
+    \item Quando chega um homem na festa, ele digita \texttt{h}.
+    \item Quando chega uma mulher na festa ele digita \texttt{m}.
+    \item Quando o calouro quiser encerrar a entrada de dados ele digita
+    \texttt{q}.
+  \end{enumerate}
+  O calouro não tem noção de quantas pessoas irão à festa.
+
+  No momento que a entrada de dados for encerrada, o programa calcula
+  quanto foi arrecadado com os ingressos masculinos e com os ingressos
+  femininos. Também é calculado o total arrecadado.
+
+  Codifique o programa operado pelo calouro na linguagem Scilab.
+
+  \begin{runexample}
+Portaria da festa BARANGA 2014/2
+--------------------------------
+Quem chegou (h/m/q): w
+Quem chegou (h/m/q): i
+Quem chegou (h/m/q): p
+Quem chegou (h/m/q): q
+
+Quantidade de homens ......: 0
+Quantidade de mulheres ....: 0
+Arrecadação com homens ....: R$ 0.00
+Arrecadação com mulheres ..: R$ 0.00
+Arrecadação total .........: R$ 0.00 
+  \end{runexample}
+
+  \begin{runexample}
+Portaria da festa BARANGA 2014/2
+--------------------------------
+Quem chegou (h/m/q): m
+Quem chegou (h/m/q): m
+Quem chegou (h/m/q): h
+Quem chegou (h/m/q): m
+Quem chegou (h/m/q): h
+Quem chegou (h/m/q): m
+Quem chegou (h/m/q): h
+Quem chegou (h/m/q): m
+Quem chegou (h/m/q): m
+Quem chegou (h/m/q): h
+Quem chegou (h/m/q): q
+
+Quantidade de homens ......: 4
+Quantidade de mulheres ....: 6
+Arrecadação com homens ....: R$ 50.00
+Arrecadação com mulheres ..: R$ 44.40
+Arrecadação total .........: R$ 94.40
+  \end{runexample}
+
+  \textbf{Dicas:}\newline
+  \begin{itemize}
+    \item A entrada de dados deve ser textual. Logo lembre-se de usar um
+    segundo argumento na chamada da função \texttt{input} para indicar
+    que será lida uma stringa.
+    \item Utilize uma variável para contar os homens, e outra para
+    contar as mulheres.
+    \item Incremente a variável adequada quando o usuário digitar
+    \texttt{h} ou \texttt{m}.
+    \item O comando de repetição deve encerrar quando o usuário digitar
+    \texttt{q}.
+    \item A primeira entrada de dados deve ser feita antes de começar a
+    repetir, pois a condição de repetição depende do valor digitado pelo
+    usuário.
+    \item As demais entradas de dados devem ser feitas no corpo do
+    comando de repetição.
+  \end{itemize}
+  
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p06/Portaria.sce}
+\end{task}
+
+\end{document}

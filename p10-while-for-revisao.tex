@@ -1,0 +1,171 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 10}
+\title{Comandos de repetição --- revisão}
+\author{}
+\date{2013--2}
+\maketitle
+
+\begin{abstract}
+  Esta prática é uma preparação para a segunda prova. Vamos lidar com
+  problemas cuja solução envolve o uso de todos os conceitos vistos até
+  agora: variáveis, expressões, comandos de atribuição, vetores e
+  matrizes, comandos de desvio e comandos de repetição.
+\end{abstract}
+
+%\tableofcontents
+
+\section{Exercícios}
+
+\begin{task}[breakable]{Conta de Investimento 1}{t:inv1}
+
+  Suponha que você deposita R\$ 500,00 em uma conta de investimento no
+  início de cada mês. No final de cada mês, é creditado um rendimento de
+  1\% do saldo total da conta. Por exemplo, no final do primeiro mês, o
+  saldo da conta seria R\$ 505,00, e ao final do segundo mês seria R\$
+  1015,10.
+
+  Escreva um programa que calcule e imprima o saldo da conta, ao final
+  de cada mês, ao longo do período de 1 ano, a partir do mês em que é
+  feito o primeiro depósito.
+
+  \begin{runexample}
+Conta de Investimento 1
+-----------------------
+Mês     Saldo
+  1    505.00
+  2   1015.05
+  3   1530.20
+  4   2050.50
+  5   2576.01
+  6   3106.77
+  7   3642.84
+  8   4184.26
+  9   4731.11
+ 10   5283.42
+ 11   5841.25
+ 12   6404.66
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p10/conta-invest1.sce}
+\end{task}
+
+\begin{task}[breakable]{Conta de Investimento 2}{}
+
+  Suponha novamente o mesmo tipo de investimento descrito na tarefa
+  \ref{t:inv1}, mas considere agora um problema ligeiramente
+  diferente.
+
+  Escreva um programa que leia um valor de capital $C$, que você deseja
+  poupar com esta aplicação (aplicação mensal de R\$ 500,00 em um fundo
+  de investimento com juros de 1\% ao mês e capitalização mensal), e
+  calcule e imprima o menor número de meses durante os quais você terá
+  que investir, de modo que o saldo da sua conta fique maior ou igual ao
+  valor $C$.
+
+  \begin{runexample}
+Conta de Investimento 2
+-----------------------
+Valor do capital desejado: 4200
+Período mínimo de investimento = 9 meses
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p10/conta-invest2.sce}
+\end{task}
+
+%\pagebreak
+ \begin{task}[breakable]{Tabela de uma função de duas variáveis}{}
+
+   Seja $f$ a seguinte função definida em $\mathbb{R}^2$:
+   \[ f(x, y)	= \left\{ \begin{array}{lcl}
+				(x*y)/(x+y) & & \text{se $x = y$} \\
+				x^2+y^2	   & & \text{se $(x+y)$ for ímpar} \\
+				(x+y)^3	   & & \text{para os demais valores de $x$ e $y$}
+                          \end{array} \right.
+  \]
+  Escreva um programa para gerar a tabela de valores da função$f$ para
+  valores de $x$ e $y$ nos seguintes intervalos:
+  \begin{itemize}
+    \item $1 \leq x \leq 8$, sendo $x$ incrementado de 1 em 1
+    \item $1 \leq y \leq x$, sendo $y$ incrementado de 1 em 1
+  \end{itemize}
+  A tabela a ser gerada é mostrada a seguir:
+  \[\begin{tabular}{l|rrrrrrrr} 
+    $x  \setminus y$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\\hline
+    1        & 0.5 \\
+    2        & 5.0 & 1.0 \\
+    3        & 64.0 & 13.0 & 1.5 \\
+    4        & 17.0 &  216.0 &  25.0 &   2.0 \\   
+    5        & 216.0  &  29.0 & 512.0  &  41.0 &  2.5 \\   
+    6        & 37.0 &  512.0  & 45.0 & 1000.0  &  61.0 &  3.0 \\   
+    7        & 512.0 &  53.0 &  1000.0  & 65.0 &  1728.0 &  85.0 &  3.5 \\   
+    8        & 65.0  & 1000.0 &  73.0  & 1728.0 & 89.0 &  2744.0 & 113.0 & 4.0 \\   
+  \end{tabular}
+  \]
+
+  \begin{runexample}
+X/Y |     1       2       3       4       5       6       7       8
+--------------------------------------------------------------------
+  1 |    0.5  
+  2 |    5.0     1.0  
+  3 |   64.0    13.0     1.5  
+  4 |   17.0   216.0    25.0     2.0  
+  5 |  216.0    29.0   512.0    41.0     2.5  
+  6 |   37.0   512.0    45.0  1000.0    61.0     3.0  
+  7 |  512.0    53.0  1000.0    65.0  1728.0    85.0     3.5  
+  8 |   65.0  1000.0    73.0  1728.0    89.0  2744.0   113.0     4.0    
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p10/tabfunc.sce}
+\end{task}
+
+%\pagebreak	
+\begin{task}[breakable]{Cálculo de $eˆx$ pela série de Taylor}{}
+
+  O valor de $e^x$, onde $x \in \mathbb{R}$, pode ser calculado pela
+  seguinte série:
+  \[ e^x = \sum^{\infty}_{n=0} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} +
+  \frac{x^3}{3!} + \cdots \]
+
+  Escreva um programa que leia o valor de $x$ e o número de termos $n$
+  da série a serem considerados, e calcule um valor aproximando para
+  $e^x$, de acordo com a equação acima, considerando apenas os $n$
+  primeiros termos da série.
+
+  \begin{runexample}
+e^x - aproximação 
+-----------------
+Digite o valor de x: 1
+Digite o número de termos da série: 30
+Valor aproximado de e^x = 2.71828 
+  \end{runexample} 
+
+  \begin{runexample}
+e^x - aproximação 
+-----------------
+Digite o valor de x: 3
+Digite o número de termos da série: 10
+Valor aproximado de e^x = 20.0634 
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p10/ex-aprox.sce}
+\end{task}
+
+
+\end{document}
+

@@ -1,0 +1,165 @@
+\documentclass[11pt,fleqn]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 7}
+\title{Comandos de repetição --- \textbf{while}}
+\author{}
+\date{2014--2}
+\maketitle
+
+\begin{abstract}
+  Nesta aula você desenvolverá algumas aplicações para treinar o uso do
+  comando \texttt{while}.
+\end{abstract}
+
+\tableofcontents
+
+\section{Resolvendo problemas}
+
+\begin{task}[breakable]{Sequência de Collatz}{}
+  A conjectura de Collatz, também conhecida como conjectura $3n+1$, foi
+  proposta pelo matemático Lothar Collatz, em 1937. Para explicar essa
+  conjectura, considere o seguinte processo que descreve como obter a
+  sequência de Collatz para um número inteiro $n>0$:
+
+  \begin{quote}
+    Se $n$ for par, divida $n$ por 2, obtendo $n/2$; se $n$ for ímpar,
+    multiplique $n$ por $3$ e some $1$, obtendo $3n+1$. Repita esse
+    processo para o valor obtido, e assim sucessivamente, até que o
+    valor obtido seja $1$.
+  \end{quote}
+
+  A tabela seguinte mostra algumas sequências de Collatz.
+  \begin{center}
+    \begin{tabular}{|r|l|} \hline
+      $\mathbf{n}$ & \textbf{sequência de Collatz para $\mathbf{n}$} \\\hline
+      5 & 5, 16, 8, 4, 2, 1 \\\hline
+      11 & 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1 \\\hline
+      12 & 12, 6, 3, 10, 5, 16, 8, 4, 2, 1 \\\hline
+    \end{tabular}
+  \end{center}
+
+  A conjectura é que esse processo de cálculo sempre termina: sempre se
+  obtém, eventualmente, o valor 1, para qualquer inteiro $n>0$ dado
+  inicialmente. Tal conjectura nunca foi provada, mas também nunca se
+  encontrou um exemplo em contrário.
+
+  Escreva um programa que leia um valor inteiro $n>0$ e imprima a
+  sequência de Collatz para $n$, assim como o comprimento dessa
+  sequência. O programa deve verificar se o valor de entrada é válido,
+  solicitando um novo valor caso não o seja.
+
+  \begin{runexample}
+Sequência de Collatz
+---------------------
+Digite um número inteiro não negativo: 11
+
+Sequência: 11 34 17 52 26 13 40 20 10 5 16 8 4 2 1
+Comprimento da sequência: 15
+  \end{runexample}
+
+  \begin{runexample}
+Sequência de Collatz
+---------------------
+Digite um número inteiro não negativo: -8
+Valor inválido.
+Digite um número inteiro não negativo: -2
+Valor inválido.
+Digite um número inteiro não negativo: 0
+Valor inválido.
+Digite um número inteiro não negativo: 5
+
+Sequência: 5 16 8 4 2 1
+Comprimento da sequência: 6
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p07/Collatz.sce}
+\end{task}
+
+\newpage
+\begin{task}[breakable]{Valor aproximado de $\pi$}{}
+  O valor de $\pi$ pode ser aproximado pela seguinte série:
+
+  \[ \frac{\pi}{8} = \frac{1}{1 \times 3} +  \frac{1}{5 \times 7} +  \frac{1}{9 \times 11} + \cdots \]
+
+  Escreva um programa que leia um valor $n \ge 1$ e calcule um valor
+  aproximado para $\pi$ usando $n$ termos da série acima.
+  
+  O seu programa deve fazer a validação da entrada. Caso o número
+  digitado pelo usuário seja inválido, deve-se exibir uma função
+  apropriada e solicitar ao usuário que digite novamente.
+
+  \begin{runexample}
+Cálculo do valor aproximado de pi
+-----------------------------------
+Quantidade de iterações: -5
+  Valor inválido. Tente novamente.
+
+Quantidade de iterações: 0
+  Valor inválido. Tente novamente.
+
+Quantidade de iterações: 5
+
+pi = 3.041839618929
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo do valor aproximado de pi
+-----------------------------------
+Quantidade de iterações: 10
+
+pi = 3.091623806668
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo do valor aproximado de pi
+-----------------------------------
+quantidade de iterações: 100
+
+pi = 3.136592684839
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p07/pi-aprox1.sce}
+\end{task}
+
+\newpage
+\begin{task}[breakable]{Aplicações financeiras}{}
+  Em uma empresa trabalham dois amigos, Charlie e Alan. Eles são
+  ambiciosos e desejam economizar para futuramente abrirem sua própria
+  empresa. Todo mês Charlie aplicará 80\% do seu salário na caderna de
+  poupança, que está rendendo 2\% ao mês, e Alan aplicará 50\% do seu
+  salário no fundo de renda fixa, que está rendendo 5\% ao
+  mês.
+
+  Escreva um programa que receba os salários de Charlie e de Alan, e
+  calcula e mostra a quantidade de meses necessários para que o valor da
+  aplicação de pertencente a Alan ultrapasse o valor da aplicação
+  pertencente a Charlie.
+
+  \begin{runexample}
+Comparação de duas aplicações
+======================================
+Informe o salário de Charlie ...: 3000
+Informe o salário de Alan ......: 2000
+Após 49 meses de aplicação:
+Rendimentos de Charlie: 196657.42
+Rendimentos de Alan: 198426.66
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p07/aplicacoes.sce}
+\end{task}
+
+
+\end{document}

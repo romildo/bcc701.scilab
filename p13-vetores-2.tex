@@ -1,0 +1,82 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 10}
+\title{Vetores: Segunda Parte}
+\author{}
+\date{2014--1}
+\maketitle
+
+\begin{abstract}
+  As atividades propostas nesta prática visam explorar o uso de vetores
+  para o desenvolvimento de aplicações.
+\end{abstract}
+
+\tableofcontents
+
+\section{Exercícios}
+
+\begin{task}[breakable]{Soma cumulativa de um vetor}{}
+  Codifique um programa que preencha um vetor com entradas feitas pelo
+  usuário através do teclado. Considere que o usuário definirá apenas
+  valores numéricos não negativos, e que, ao desejar encerrar a entrada
+  dos elementos do vetor ele digite um valor negativo.
+
+  Após a entrada de todos os elementos do vetor, o programa gera outro
+  vetor, o qual representa o resultado da execução da função
+  \texttt{cumsum} pré-definida no Scilab que calcula a soma cumulativa
+  de um vetor (porém não use a função \texttt{cumsum}). O elemento na
+  posição $i$ do vetor soma cumulativa de $v$ é dado pela soma de todos
+  os elementos de $v$ com índices de $1$ a $i$, inclusive. Por exemplo,
+  a soma cumulativa do vetor
+  \[ (1, 8, 6, 10) \]
+  é o vetor
+  \[ (1, 1+8, 1+8+6, 1+8+6+10) \]
+  que é igual a
+  \[ (1, 9, 15, 25) \]
+
+  \begin{runexample}
+Cálculo da soma acumulada de um vetor
+-------------------------------------
+Digite os elementos do vetor.
+Para encerrar digite um número negativo
+  digite um elemento do vetor: -5
+
+Vetor dado:
+[ ]
+
+Soma cumulativa do vetor dado:
+[ ]
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo da soma acumulada de um vetor
+-------------------------------------
+Digite os elementos do vetor.
+Para encerrar digite um número negativo
+  digite um elemento do vetor: 1
+  digite um elemento do vetor: 8
+  digite um elemento do vetor: 6
+  digite um elemento do vetor: 10
+  digite um elemento do vetor: -2
+
+Vetor dado:
+[ 1 8 6 10 ]
+
+Soma cumulativa do vetor dado:
+[ 1 9 15 25 ]
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p11/soma-cumulativa.sce}
+\end{task}
+
+
+\end{document}

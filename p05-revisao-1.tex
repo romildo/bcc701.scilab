@@ -1,0 +1,168 @@
+% compile with
+%   pdflatex --shel-escape p03-matrizes
+% or
+%   latexmk -pvc -pdf -latexoption=--shell-escape p03-matrizes
+%
+
+\documentclass[11pt,fleqn]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 5}
+\title{Revisão: Variáveis, Expressões, Matrizes, Comandos de Desvio}
+\author{}
+\date{2013--2}
+\maketitle
+
+%\begin{abstract}
+%  Nesta aula você irá resolver alguns problemas interessantes, envolvendo o uso dos conceitos %aprendidos nas aulas anteriores. Divirta-se! E bom estudo para a primeira prova!
+%\end{abstract}
+
+%\tableofcontents
+
+\begin{task}[breakable]{Lei de Gravitação Universal}{}
+A \emph{Lei de Gravitação Universal\/} de Newton, nos diz que quaisquer dois corpos no universos se raem com uma força proporcional ao produto de suas massas e o inverso do quadrado da distância entre eles, como ilustrado na a figura. 
+\begin{center}
+     \includegraphics[width=0.4\linewidth]{images/forca-gravitacional}
+\end{center}
+Se $m_1$ e $m_2$ são as massas dos dois corpos,  em kg, e $r$ é a distância entre eles, em metros, a força é dada em Newtons e o valor da constante de gravitação universal $g$ é $6.674\times 10^{-11} \text{N}.\text{m/kg}^2$. Escreva um programa que leia os valores das massas de dois corpos, em unidades de $10^{24}$ kg, e a distância entre eles, em km, e calcule a força de atração gravitacional entre eles, em Newtons. No exemplo abaixo, os dados de entrada são, respectivamente, a massa da terra, a massa da Lua e a distância entre esses dois astros. 
+
+  \begin{runexample}
+Força Gravitacional
+--------------------------------
+Informe a massa do corpo 1 (em 10^24 kg): 5.9742
+Informe a massa do corpo 2 (em 10^24 kg): 0.0736
+Informe a distância entre eles (em km): 384402
+Força gravitacional = 1.98597e+20 Newtons
+\end{runexample}
+
+ \tcblower
+  \solution
+  \lstinput{scilab}{listings/p05/forca-gravitacional.sce}
+\end{task}
+\pagebreak
+
+\begin{task}{Excentricidade de uma elipse}{}
+ A excentricidade de uma  elipse é definida como:
+\[ \sqrt{1 - \frac{bˆ2}{a}} \]
+onde $a$ é o semieixo maior e $b$ é o semieixo menor da elipse.  Escreva um programa que leia os comprimentos dos semieixos de uma elipse, como um vetor de 2 valores, e calcule e imprima a excentricidade da elipse. O programa deve verificar se o dado de entrada é válido, isto é, se é um vetor com exatamente 2 valores, ambos positivos. Caso contrário, deve imprimir a mensagem \emph{valor inválido\/}. Dois valores apenas representam os semieixos de uma elipse se satifazem a relação $0 < b^2/a \leq 1$, onde $a$ é o maior e $b$ é o menor desses valores. Se isso não ocorrer, o programa deverá imprimir a mensagem \emph{não é uma elipse}.  \emph{Obs\/}: Excentricidade igual a 1 significa que o objeto é um círculo. 
+
+  \begin{runexample}
+Excentricidade da elipse
+--------------------------------
+Digite os comprimentos dos semieixos da elipse: [3 12]
+Excentricidade = 0.5 
+\end{runexample}
+
+  \begin{runexample}
+Excentricidade da elipse
+--------------------------------
+Digite os comprimentos dos semieixos da elipse: [3 8]
+Não é uma elipse 
+\end{runexample}
+ 
+ \tcblower
+  \solution
+  \lstinput{scilab}{listings/p05/excentricidade-elipse.sce}
+\end{task}
+
+
+\textbf{\emph{Dicas}}:
+\begin{enumerate}
+     \item O comando \texttt{input} pode ser usado para ler um vetor. Por exemplo, se for usado o comando \mbox{\texttt{v = input("Digite um vetor:")}}, e a entrada for \texttt{[2 8]} (ou \texttt{[2,8]}), o valor de \texttt{v} será este vetor. 
+     \item O comando \textbf{if-then-else} pode ser usado para determinar qual, dentre 2 elementos, é o maior e qual é o menor. Entretanto, uma maneira mais fácil de fazer isso, em Scilab, é usando as funções pré-definidas \texttt{max} e \texttt{min}, que determinam, respectivamente., o máximo e o mínimo de um vetor (ou matriz). 
+    \item Outra alternativa, ainda mais eficiente e elegante, é ordenar o vetor lido em ordem decrescente (ou crescente) e obter o menor e o maior semieixo como o segundo (primeiro) e primeiro (segundo) elementos do vetor ordenado, respectivamente. Para ordenar o vetor de entrada, em Scilab, pode-se usar a função pré-definida \texttt{gsort}. Por exemplo, se \mbox{\texttt{A = [4,2,9,1]}} e for executado o comando \mbox{\texttt{B = gsort(A)}}, o valor de \texttt{B} será o vetor \texttt{[9,4,2,1]}. A função \texttt{gsort} implementa um algoritmo sofisticado e eficiente para ordenação de matrizes, chamado \emph{quicksort}. Mais à frente, neste curso, você irá aprender um algoritmo para ordenar vetores, embora um pouco mais simples e menos eficiente. 
+   \item Procure implementar uma das soluções sugeridas acima. Como exercício adicional, tente, mais tarde, implementar as outras versões do mesmo programa. Compare os códigos obtidos do ponto de vista de clareza, concisão e elegância.  
+\end{enumerate}
+
+
+\begin{task}{Usando operações sobre vetores}{}
+Considere a função definida por:
+\[ f(x) = (x^2 \times e^{x/2})^{k} \]
+onde $k=\sqrt{2}+0,02$. Escreva um programa que calcule e imprima a tabela de valores de $f(x)$ para $x$ variando no intervalo de -5 a 5, em incrementos de 1. Imprima também o valor máximo de $f(x)$ para $x$ variando neste intervalo, e para qual valor de $x$ este valor máximo ocorre.
+
+  \begin{runexample}
+ Tabela de valores de f(x) para x=-5:1:5
+--------------------------------------
+ x       f(x)
+-5      2.8039 
+-4      3.0285 
+-3      2.7182 
+-2      1.7402 
+-1      0.4882 
+ 0      0.0000 
+ 1      2.0485 
+ 2     30.6446 
+ 3    200.8603 
+ 4    939.0901 
+ 5   3648.5652 
+---------------------------------------
+Valor mínimo de f(x) =    0.0000, para x =  6 
+\end{runexample}
+
+ \tcblower
+  \solution
+  \lstinput{scilab}{listings/p05/calc-fx.sce}
+\end{task}
+
+\textbf{\emph{Dica}}: Você não deve preocupar-se muito com a formatação da tabela de valores da função. O objetivo deste exercício é que você aprenda a usar operações e funções sobre vetores. De qualquer modo, se você quiser imprimir a tabela exatamente como no exemplo acima, basta usar os comandos: 
+\begin{lst}{scilab}
+printf("\n--------------------------------------\n")
+printf(" x       f(x)\n");
+printf("%2.0f   %9.4f \n",[xs' fxs'])
+printf("---------------------------------------\n")
+\end{lst}
+onde \texttt{T} é a tabela de valores a serem impressos, com 2 colunas, a primeira contendo os valores de de $x$ e a segunda os valores correspondentes de $f(x)$. Como você poderia criar esta tabela, a partir dos vetores de valores de $x$ e de $f(x)$?
+
+
+\pagebreak
+\begin{task}{Dias decorridos no ano}{}
+Escreva um programa que leia uma data, como um vetor no formato \texttt{[$d$ $m$ $a$]} onde $d$ é o dia, $m$ é o mês e $a$ é o ano, e calcula o número de dias decorridos desde o início do ano até esta data. Seu programa deve verificar se a data informada é válida, isto é, se $a > 0$, $1 \leq m \leq 12$ e $1 \leq d \leq D_{m}$, onde $D_m$ é o número de dias do mês $m$. 
+Caso a data informada não seja váida, o programa deve terminar, imprimindo \emph{data inválida}. 
+
+Para verificar se a data é válida e calcular o número de dias decorridos desde o início do ano, será necessário saber o número de dias de cada mês. Como você pode manter tal informação no seu programa? Também será necessário saber se o ano é bissexto ou não, para determinar corretamente o número de dias do mês de fevereiro. Para determinar se um ano é bissexto ou não, é usada a seguinte regra: um ano é bissexto somente se ele é divisível por 400, ou se ele não é divisível por 100 mas é divisível por 4.
+
+  \begin{runexample}
+Cálculo de dias decorridos
+--------------------------------
+Digite a data no formato [d m a]: [3 3 2013]
+Número de dias decorridos = 62
+\end{runexample}
+ 
+ \begin{runexample}
+Cálculo de dias decorridos
+--------------------------------
+Digite a data no formato [d m a]: [3 3 400]
+Número de dias decorridos = 63
+\end{runexample}
+ 
+ \begin{runexample}
+Cálculo de dias decorridos
+--------------------------------
+Digite a data no formato [d m a]: [3 3 1300]
+Número de dias decorridos = 62 
+\end{runexample}
+
+ \tcblower
+  \solution
+  \lstinput{scilab}{listings/p05/dias-decorridos.sce}
+\end{task}
+
+\textbf{\emph{Dicas}}:
+\begin{enumerate}
+	\item Uma boa maneira de armazenar a informação sobre o número de dias de cada mês é usando um vetor. O número de dias de um dado mês pode então ser obtido por meio de indexação neste vetor, com o índice apropriado. 
+	\item Você pode usar um comando if para determinar se um ano é bissexto ou não. Entretanto, a maneira mais elegante e concisa de fazer isso é usando uma expressão lógica.  
+	\item O que você deve fazer para calcular o número de dias decorridos até uma data \texttt{[$d$ $m$ $a$]} válida?  Você precisará somar o número de dias de todos os meses de 1 a $m-1$ e depois somar $d$, não é? Para obter a primeira parcela, você pode usar a função \texttt{sum}, aplicada ao subvetor apropriado do vetor de dias de cada mês.
+\end{enumerate}
+\pagebreak
+
+
+   
+\end{document}

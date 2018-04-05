@@ -1,0 +1,73 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 14}
+\title{Revisão 3b}
+\author{}
+\date{2013--2}
+\maketitle
+
+\begin{abstract}
+  Esta prática é uma preparação para a terceira prova. Vamos lidar com
+  problemas cuja solução envolve o uso des conceitos vistos até agora,
+  destacando: vetores, matrizes e funções.
+\end{abstract}
+
+%\tableofcontents
+
+\section{Exercícios}
+
+\begin{task}[breakable]{Vendas de uma loja\footnote{Questão 2 da prova 3 de 2013/1}}{}
+
+  Escreva um programa que, a partir de uma matriz de vendas semanais dos
+  vendedores de uma loja, calcule e imprima:
+  \begin{itemize}
+    \item o total de vendas de cada semana (todos os vendedores somados)
+    \item o total de vendas de cada vendedor (todas as semanas somadas)
+    \item o total de vendas (todos os valores somados)
+  \end{itemize}
+
+  Você não precisa ler os valores das vendas semanais: suponha que eles
+  já estão armazenados em uma matriz de nome $A$, onde cada linha
+  representa um vendedor e cada coluna representa uma semana. Você deve
+  imprimir essa matriz (podendo usar o comando \texttt{disp}). Os
+  números de semanas e de vendedores não são conhecidos antecipadamente,
+  e devem ser determinados pelas dimensões da matriz $A$.
+
+  O exemplo de execução a seguir ilustra um caso em que a matriz $A$
+  corresponde às vendas de 5 vendedores, durante 4 semanas.
+
+  \begin{runexample}
+Matriz de vendas: 
+    10.    31.    28.    11.  
+    37.    42.    33.    11.  
+    0.     34.    36.    10.  
+    16.    43.    9.     44.  
+    33.    3.     27.    32.  
+
+Vendas da semana 1: 96
+Vendas da semana 2: 153
+Vendas da semana 3: 133
+Vendas da semana 4: 108
+
+Vendas do vendedor 1: 80
+Vendas do vendedor 2: 123
+Vendas do vendedor 3: 80
+Vendas do vendedor 4: 112
+Vendas do vendedor 5: 95
+
+Vendas no mês: 490
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p14/vendas.sce}
+\end{task}
+
+\end{document}

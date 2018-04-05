@@ -1,0 +1,77 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 16}
+\title{Revisão 3d}
+\author{}
+\date{2013--2}
+\maketitle
+
+\begin{abstract}
+  Esta prática é uma preparação para a terceira prova. Vamos lidar com
+  problemas cuja solução envolve o uso des conceitos vistos até agora,
+  destacando: vetores, matrizes e funções.
+\end{abstract}
+
+%\tableofcontents
+
+\section{Exercícios}
+
+\begin{task}[breakable]{Conversão de temperaturas}{}
+
+  O programa listado a seguir, quando executado, exibe uma tabela de
+  correspondência de temperaturas nas escalas Celsius e Fahrenheit, de
+  $32^oC$ até $44^oC$, com incrementos de $2^oC$.
+
+  \begin{lst}{scilab}
+clc; clear;
+printf("Tabela de temperaturas\n")
+printf("-------------------------------\n");
+printf("T(C)    T(F)\n");
+for t = 0 : 2 : 30
+    printf("%4.0f   %5.1f\n", t, fahrenheit(t));
+end
+  \end{lst}
+
+  Observe que o programa usa uma função chamada \texttt{fahrenheit},
+  cuja definição foi omitida.
+
+  Defina a função \texttt{fahrenheit} para converter uma temperatura da
+  escala Celsius para a escala Fahrenheit segundo a equação
+  \[ C = \frac{9}{5} F + 32 \] onde $C$ é a temperatura na escala
+  Celsius e $F$ é a temperatura na escala Fahrenheit.
+
+  \begin{runexample}
+Tabela de temperaturas
+-------------------------------
+T(C)    T(F)
+   0    32.0
+   2    35.6
+   4    39.2
+   6    42.8
+   8    46.4
+  10    50.0
+  12    53.6
+  14    57.2
+  16    60.8
+  18    64.4
+  20    68.0
+  22    71.6
+  24    75.2
+  26    78.8
+  28    82.4
+  30    86.0
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p16/temperaturas.sce}
+\end{task}
+
+\end{document}

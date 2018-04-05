@@ -1,0 +1,97 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 12}
+\title{Vetores: Terceira Parte}
+\author{}
+\date{2014--1}
+\maketitle
+
+\begin{abstract}
+  As atividades propostas nesta prática visam explorar o uso de vetores
+  para o desenvolvimento de aplicações.
+\end{abstract}
+
+\tableofcontents
+
+\section{Exercícios}
+
+\begin{task}[breakable]{}{}
+  Codificar um programa Scilab que leia um vetor de $n$ valores. A
+  seguir, o programa determina e exibe quantos elementos são nulos,
+  positivos e negativos.
+  \begin{runexample}
+Digite a quantidade de elementos do vetor:5
+Início da leitura dos elementos do vetor...
+Elemento 1: 
+  digite o valor --> 10
+Elemento 2: 
+  digite o valor --> 20
+Elemento 3: 
+  digite o valor --> 30
+Elemento 4: 
+  digite o valor --> 0
+Elemento 5: 
+  digite o valor --> -13
+
+Vetor original:
+10  20  30  0  -13  
+
+Elementos nulos     --> 1
+Elementos positivos --> 3
+Elementos negativos --> 1
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p12/pos-neg-nul.sce}
+\end{task}
+
+\begin{task}[breakable]{}{}
+  Uma escola deseja saber se existem alunos cursando, simultaneamente,
+  as disciplinas Programação de Computadores e Cálculo Numérico. Coloque
+  os números das matrículas doa alunos que cursam Programação de
+  Computadores em um vetor, e dos alunos que cursam Cálculo Numérico em
+  outro vetor. Mostre o número das matrículas que aparecem nos dois
+  vetores simultaneamente.
+
+  \begin{runexample}
+Alunos matriculados em Programação de Computadores:
+matrícula (0 para terminar): 10
+matrícula (0 para terminar): 20
+matrícula (0 para terminar): 30
+matrícula (0 para terminar): 44
+matrícula (0 para terminar): 50
+matrícula (0 para terminar): 55
+matrícula (0 para terminar): 60
+matrícula (0 para terminar): 70
+matrícula (0 para terminar): 0
+
+Alunos matriculados em Programação de Computadores:
+matrícula (0 para terminar): 5
+matrícula (0 para terminar): 15
+matrícula (0 para terminar): 20
+matrícula (0 para terminar): 33
+matrícula (0 para terminar): 40
+matrícula (0 para terminar): 50
+matrícula (0 para terminar): 55
+matrícula (0 para terminar): 80
+matrícula (0 para terminar): 90
+matrícula (0 para terminar): 0
+
+Alunos matriculados nos nois cursos:
+20 50 55
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p12/matriculas.sce}
+\end{task}
+
+\end{document}

@@ -1,0 +1,125 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 6a}
+\title{Comandos de Repetição: While --- Parte 2}
+\author{}
+\date{2013--2}
+\maketitle
+
+\begin{abstract}
+  Nesta aula você desenvolverá algumas aplicações para treinar o uso do
+  comando \texttt{while}.
+\end{abstract}
+
+\tableofcontents
+
+
+\begin{task}[breakable]{Cálculo da média aritmética}{taf:media}
+  O professor de Estatística deseja calcular a média aritmética das
+  notas finais de seus alunos. Faça um programa que leia as notas dos
+  alunos e calcula e exibe a sua média aritmética. A entrada dos dados
+  deve ser encerrada quando for digitada uma nota negativa.
+
+  \textbf{Dicas:}
+  \begin{itemize}
+    \item Leia a primeira nota antes de iniciar uma estrutura de
+    repetição.
+    \item Utilize o valor lido para controlar as repetições. As demais
+    notas serão lidas no corpo da estrutura de repetição.
+    \item Use uma variável para contar as notas válidas e outra variável
+    para calcular a soma das notas válidas. O valor inicial destas
+    variáveis deve ser zero (que é o elemento neutro da adição).
+    \item Sempre que ler uma nota válida, atualize estas variáveis
+    incrementando o contador em uma unidade, e adicionando a nota lida
+    ao valor até então calculado para a soma.
+    \item Ao terminar a entrada dos dados, verifique se a quantidade de
+    notas válidas é positiva. Em caso afirmativo obtenha a média
+    dividindo a soma pela quantidade de notas válidas.
+  \end{itemize}
+
+  \begin{runexample}
+Cálculo da média
+----------------------------
+Digite a nota (valor negativo para terminar): 4.5
+Digite a nota (valor negativo para terminar): 8
+Digite a nota (valor negativo para terminar): 9.2
+Digite a nota (valor negativo para terminar): 6.0
+Digite a nota (valor negativo para terminar): 5.5
+Digite a nota (valor negativo para terminar): 7.1
+Digite a nota (valor negativo para terminar): -1
+
+Média aritmética: 6.72
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo da média
+----------------------------
+Digite a nota (valor negativo para terminar): -5
+
+Nenhuma nota válida foi digitada!
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p06a/media.sce}
+\end{task}
+
+\begin{task}[breakable]{Cálculo do maior valor}{}
+  O professor de Estatística também deseja determinar qual foi a maior
+  nota no conjunto de notas de seus alunos (veja a tarefa anterior).
+
+  Modife o programa da tarefa anterior para que seja também exibida a
+  maior nota válida digitada pelo usuário.
+
+  \textbf{Dicas:}
+  \begin{itemize}
+    \item Use uma variável para guardar a maior nota conhecida em um
+    determinado momento. O valor inicial desta variável deve ser
+    \texttt{-\%inf}, já que nenhuma nota será menor que $-\inf$.
+    \item Sempre que ler uma nota válida, verifique se ela é maior do
+    que a maior nota válida já encontrada até o momento. Em caso
+    afirmativo armazene a nota em questão na variável, pois esta nota
+    passa a ser a maior nota.
+    \item Ao final do laço de repetição, caso tenham sido digitadas
+    notas válidas, o valor desta variável será a maior nota válida.
+  \end{itemize}
+
+  \begin{runexample}
+ Cálculo da média
+----------------------------
+Digite a nota (valor negativo para terminar): 6.4
+Digite a nota (valor negativo para terminar): 8.9
+Digite a nota (valor negativo para terminar): 1.5
+Digite a nota (valor negativo para terminar): 4.3
+Digite a nota (valor negativo para terminar): 9.2
+Digite a nota (valor negativo para terminar): 6.0
+Digite a nota (valor negativo para terminar): 5.9
+Digite a nota (valor negativo para terminar): -1
+
+Média aritmética: 6.03
+Maior nota: 9.20
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo da média
+----------------------------
+Digite a nota (valor negativo para terminar): -5
+
+Nenhuma nota válida foi digitada!
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p06a/media2.sce}
+\end{task}
+
+\end{document}

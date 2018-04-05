@@ -1,0 +1,11 @@
+clc;
+clf;
+clear;
+x = [-%pi : 0.2 : %pi];
+y = x .* sin(x) - x .^ 3 / (2*%pi);
+plot(x, y);
+title("Gráfico de funções");
+xlabel("x");
+ylabel("y");
+legend("Resultado");
+set(gca(), "grid", [1 1]);

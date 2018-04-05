@@ -1,0 +1,254 @@
+\documentclass[11pt,fleqn]{practice}
+\usepackage{siunitx}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 4}
+\title{Comandos de Desvio 2}
+\author{}
+\date{2014--2}
+\maketitle
+
+\begin{abstract}
+  Nesta aula você irá resolver mais problemas que requerem uma decisão
+  com base em um teste, ou condição. Para implementar a solução de
+  problemas desse tipo, são utlizados comandos de desvio do fluxo de
+  execução do programa (\textbf{if-then-else}).
+\end{abstract}
+
+\tableofcontents
+
+\section{Condições mutuamente exclusivas}
+
+Em algumas situações, podemos querer testar um conjunto de condições
+mutuamente exclusivas, tal como na computação da função definida a
+seguir:
+\[ g(x,y) = \left\{\begin{array}{ll}
+		       x + y     & \text{se}\; x \geq 0 \text{ e } y \geq 0 \\
+		       x + y^2   & \text{se}\; x \geq 0 \text{ e } y < 0 \\
+		       x ^2+ y   & \text{se}\; x < 0 \text{ e } y \geq 0 \\
+		       x^2 + y^2 & \text{se}\; x < 0 \text{ e } y < 0               
+                   \end{array} \right.
+\]
+
+Para computar o valor de $g(x,y)$ podemos escrever o seguinte trecho de
+código em Scilab:
+\begin{lst}{scilab}
+if x >= 0 & y >= 0  then 
+    gx = x + y                 // bloco 1
+elseif x >= 0 & y < 0 then
+    gx = x + y^2               // bloco 2
+elseif x >= 0 & y < 0 then
+    gx = x^2 + y               // bloco 3
+else  // x < 0 & y < 0
+    gx = x^2 + y^2             // bloco 4
+end
+\end{lst}
+
+No comando acima, a condição da cláusula \texttt{if} é avaliada e, caso
+seja verdadeira, o bloco de comnados 1 é executado. Caso contrário, é
+avaliada a condição da cláusula \texttt{elseif} e, caso esta seja
+verdadeira, o bloco 2 é executado, e assim por diante. Caso nenhuma das
+condições anteriores seja verdadeira, é executado o bloco de comandos 4,
+correspondente à cláusula \texttt{else}.
+
+\section{Problemas}
+
+\begin{task}[breakable]{Tarifa de Energia}{}
+  A conta de energia elétrica de consumidores residenciais de uma cidade
+  é calculada do seguinte modo, onde o consumo é dado em kilowatts (kw):
+  \begin{itemize}
+    \item Se o consumo é de até 500 kw, a tarifa é de R\$ 0,02 por
+    unidade.
+    \item Se o consumo é maior que 500 kw, mas não excede 1000 kw, a
+    tarifa é de R\$ 0,10 para os 500 primeiros kw e de R\$ 0,05 para
+    cada kw excedente a 500.
+    \item Se o consumo é maior que 1000 kw, a tarifa é de R\$ 0,35 para
+    os 1000 primeiros kw e de R\$ 0,10 para cada kw excedente a 1000.
+    \item Em toda conta, é cobrada uma taxa básica de serviço de R\$
+    5,00, independentemente da quantidade de energia consumida.
+  \end{itemize}
+
+  Escreva um programa que leia o consumo de energia elétrica de uma
+  residência e imprima a sua conta de energia, no formato indicado no
+  exemplo abaixo. O programa deve verificar se o valor fornecido para o
+  consumo de energia é um valor inteiro positivo e, caso contrário,
+  terminar exibindo uma mensagem indicativa de valor inválido.
+
+  \begin{runexample}
+Cálculo da Conta de Energia Elétrica
+------------------------------------
+Informe o consume de energia: 532.6
+O consumo deve ser inteiro e positivo!
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo da Conta de Energia Elétrica
+------------------------------------
+Informe o consume de energia: 308
+--------------------------------------
+Consumo                    = 308 
+Custo da energia consumida = R$   6.16 
+Tarifa básica de serviço   = R$   5.00 
+Valor a pagar              = R$  11.16 
+--------------------------------------
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo da Conta de Energia Elétrica
+------------------------------------
+Informe o consume de energia: 547
+--------------------------------------
+Consumo                    = 547 
+Custo da energia consumida = R$  52.35 
+Tarifa básica de serviço   = R$   5.00 
+Valor a pagar              = R$  57.35 
+--------------------------------------
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo da Conta de Energia Elétrica
+------------------------------------
+Informe o consume de energia: 1123
+--------------------------------------
+Consumo                    = 1123 
+Custo da energia consumida = R$ 362.30 
+Tarifa básica de serviço   = R$   5.00 
+Valor a pagar              = R$ 367.30 
+--------------------------------------
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p04/conta-energia.sce}
+\end{task}
+
+\begin{task}[breakable]{Aposentadoria}{}
+  Um deputado propôs um projeto para alterar as regras para a
+  aposentadoria. Por este projeto, para requerer a aposentadoria, os
+  trabalhadores têm que combinar dois requisitos: tempo de contribuição
+  ao INSS e idade mínima.
+
+  Os trabalhadores do sexo masculino poderão aposentar-se com no mínimo
+  50 anos de idade e no mínimo 30 anos de contribuição. Além disto, é
+  necessário que a soma entre o tempo de contribuição e a idade seja de
+  no mínimo 90 anos para eles.
+
+  Faça um programa em Scilab que leia a idade e o tempo de contribuição
+  de um trabalhador do sexo masculino e informe se o mesmo pode se
+  aposentar. Não é necessário validar a idade e o tempo de contribuição.
+
+  \begin{runexample}
+Aposentadoria
+------------------------------------------
+Informe a idade em anos: 53
+Informe o tempo de contribuição em anos: 35.6
+Ainda não pode se aposentar.
+  \end{runexample}
+
+  \begin{runexample}
+Aposentadoria
+------------------------------------------
+Informe a idade em anos: 54
+Informe o tempo de contribuição em anos: 37
+A aposentadoria pode ser solicitada.
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p04/aposentadoria.sce}
+\end{task}
+
+\begin{task}[breakable]{IPTU}{}
+  A prefeitura de Ouro Preto contratou você para fazer um programa que
+  calcule os valores do IPTU de imóveis da cidade, conforme o tipo do
+  loteamento e a área dos mesmos. Deverão ser considerados apenas dois
+  tipos de loteamento: 1 e 2. Para cada tipo de loteamento, se a área do
+  imóvel for menor que \SI{200}{m^2}, efetua-se um cálculo de IPTU; se
+  for maior ou igual a \SI{200}{m^2}, efetua-se outro cálculo de IPTU. A
+  tabela abaixo mostra como o cálculo deve ser efetuado para cada caso.
+
+  \begin{center}
+    \begin{tabular}{lll}\hline
+      \textbf{tipo de loteamento} & $0 < \text{área} < \SI{200}{m^2}$ & $\text{área} \ge \SI{200}{m^2}$ \\\hline
+      1 & $\text{IPTU} = \text{área} \times 1,0$ & $\text{IPTU} = \text{área} \times 1,2$ \\
+      2 & $\text{IPTU} = \text{área} \times 1,1$ & $\text{IPTU} = \text{área} \times 1,3$ \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  Faça um programa em Scilab que leia o tipo de um loteamento e a área
+  do mesmo e apresente o valor do IPTU de um determinado imóvel de Ouro
+  Preto, calculado conforme a tabela acima.
+
+  \begin{runexample}
+Cálculo do IPTU
+------------------------------------------
+Informe o tipo do loteamento (1 ou 2): 1
+Informe a área do imóvel em m^2: 150
+O valor do IPTU é R$ 150.
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo do IPTU
+------------------------------------------
+Informe o tipo do loteamento (1 ou 2): 1
+Informe a área do imóvel em m^2: 300
+O valor do IPTU é R$ 360.
+  \end{runexample}
+
+  \begin{runexample}
+Cálculo do IPTU
+------------------------------------------
+Informe o tipo do loteamento (1 ou 2): 2
+Informe a área do imóvel em m^2: 300
+O valor do IPTU é R$ 390.
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p04/iptu.sce}
+\end{task}
+
+\begin{task}[breakable]{Linha de crédito}{}
+  A prefeitura de Ouro Preto abriu uma linha de crédito para os
+  funcionários celetistas. Qualquer funcionário pode solicitar um
+  empréstimo, desde que o valor da prestação não ultrapasse 30\% de seu
+  salário líquido. O salário líquido é obtido subtraindo-se do salário
+  bruto a contribuição ao INSS (9\% do salário bruto).
+
+  Codifique um programa que solicite ao usuário o valor do salário bruto
+  e o valor da prestação que se deseja pagar. O programa deve informar
+  se o empréstimo pode ou não ser concedido.
+
+  \begin{runexample}
+Linha de crédito
+------------------------------------------
+Digite o valor do salário bruto: 2519.65
+Qual o valor da prestação a ser paga? 350.00
+O empréstimo pode ser concedido!
+Salário líquido: 2292.88
+Valor máximo da prestação: 687.864
+  \end{runexample}
+
+  \begin{runexample}
+Linha de crédito
+------------------------------------------
+Digite o valor do salário bruto: 1563.18
+Qual o valor da prestação a ser paga? 427.00
+O empréstimo não pode ser concedido!
+Salário líquido: 1422.49
+Valor máximo da prestação: 426.748
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p04/credito.sce}
+\end{task}
+
+\end{document}

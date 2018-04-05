@@ -1,0 +1,203 @@
+% \documentclass{beamer}
+
+\input{aula}
+
+\usepackage{alltt}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.callouts}
+\usetikzlibrary{decorations.text}%workaround for undefined \pgf@test
+
+\newcommand{\refnode}[2]{%
+  \tikz[remember picture,baseline=-.5ex]{%
+    \node[draw](#1){#2};
+  }%
+}
+
+\newcommand{\pos}[1]{%
+  \tikz[remember picture,overlay,baseline=-.5ex]{%
+    \node(#1){\phantom{X}};
+  }%
+}
+
+\PYstyledefault
+
+\begin{document}
+
+\title[PC1-09 Funções]{
+  {\large Programação de Computadores 1}\\[2mm]
+  \includegraphics[height=2cm]{images/scilab.png}\\
+  {\normalsize Capítulo 9}\\
+  Funções
+}
+\subject{Programação de Computadores}
+\author{José Romildo Malaquias}
+\institute[UFOP]{
+  Departamento de Computação\\
+  Universidade Federal de Ouro Preto
+}
+\date{\semester}
+
+\frame{\titlepage}
+
+\frame{\tableofcontents}
+
+\section{Funções}
+
+\begin{frame}[fragile]{Propósitos do uso de funções}
+  \begin{itemize}
+    \item Modularizar um programa em partes menores
+    \item Executar uma tarefa que é frequentemente solicitada
+    \item Aumentar a legibilidade e manutenibilidade do programa
+    \item Implementar as chamadas UDF (User Defined Functions), para
+    complementar as necessidades do programador na execução de tarefas
+    não suportadas pelo ambiente de programação.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Exemplo: maior de dois valores}
+  Escrever um programa que
+  \begin{itemize}
+    \item leia dois valores numéricos,
+    \item calcula o maior valor desses dois números, e
+    \item mostra o resultado.
+  \end{itemize}
+
+  \begin{pygmented}[lang=scilab]
+x1 = input("Primeiro valor .....: ");
+x2 = input("Segundo valor ......: ");
+maior = maior2valores(x1, x2);
+printf("O maior valor é: %g\n", maior);
+  \end{pygmented}
+
+  \begin{pygmented}[lang=scilab]
+clear; clc;
+
+// Definição da função
+function resposta = maior2valores(a, b)
+    if a > b then
+        resposta = a;
+    else
+        resposta = b;
+    end
+endfunction
+
+// Programa principal
+x1 = input("Primeiro valor .....: ");
+x2 = input("Segundo valor ......: ");
+maior = maior2valores(x1, x2);
+printf("O maior valor é: %g\n", maior);
+  \end{pygmented}
+
+  \framebreak
+  \mbox{}\vspace{1cm}
+  \begin{mdframed}
+    \begin{alltt}
+
+\refnode{k1}{\PY{k}{function}} \refnode{r}{resposta} = \refnode{n}{\PY{n+nf}{maior2valores}}(\refnode{a}{a}, \refnode{b}{b})
+
+    \pos{ctl}\PY{k}{if} a > b \PY{k}{then}
+        resposta = a;
+    \PY{k}{else}
+        resposta = b;\pos{cr}
+    \pos{cbl}\PY{k}{end}
+
+\refnode{k2}{\PY{k}{endfunction}}
+    \end{alltt}    
+  \end{mdframed}
+
+  \begin{tikzpicture}[remember picture,overlay,note/.style={rectangle callout, fill=#1}]
+    \draw (ctl.north west) -|(cr.north)--(cr.south)|-(cbl.south west)--(ctl.north west);
+    \node[note=green!30,align=left,overlay,callout absolute pointer=(r.north)] at ($(r.north)+(-.3,2)$) {parâmetro de saída:\\calculado pela função};
+    \node[note=yellow!30,overlay,callout absolute pointer=(b.north)] at ($(a.north)+(2,1)$) {parâmetro de entrada};
+    \node[note=yellow!50,align=left,overlay,callout absolute pointer=(a.north)] at ($(a.north)+(2,1)$) {parâmetro de entrada:\\fornecido na chamada da funçâo};
+    \node[note=blue!30,overlay,callout absolute pointer=(n.north)] at ($(n.north)+(-.1,1)$) {nome da função};
+    \node[note=red!30,overlay,callout absolute pointer=(cr)] at ($(cr)+(2,0)$) {corpo da função};
+    \node[note=black!30,overlay,callout absolute pointer=(k1.north)] at ($(k1.north)+(0,1)$) {palavra chave};
+    \node[note=black!30,overlay,callout absolute pointer=(k2.south)] at ($(k2.south)-(0,1)$) {palavra chave};
+  \end{tikzpicture}
+\end{frame}
+
+% \begin{frame}[fragile,allowframebreaks]{Exemplo: calculando com vetores}
+%   Escrever um programa que
+%   \begin{itemize}
+%     \item define três vetores com quatro elementos numéricos, e
+%     \item encontra e exibe:
+%     \begin{itemize}
+%       \item o menor elemento de cada vetor, e
+%       \item a média dos elementos de cada vetor
+%     \end{itemize}
+%   \end{itemize}
+%   \framebreak
+%   \begin{pygmented}[lang=scilab]
+% clear; clc;
+
+% // Função para encontrar o menor elemento de um vetor
+% function x = menor(v)
+%     n = length(v);
+%     x = v(1);
+%     for i = 2:n
+%         if v(i) < x then
+%             x = v(i);
+%         end
+%    end
+% endfunction
+%   \end{pygmented}
+%   \framebreak
+%   \begin{pygmented}[lang=scilab]
+% // Função para calcular a média dos elementos de um vetor
+% function x = media(v)
+%     n = length(v);
+%     x = 0;
+%     for i = 1:n
+%         x = x + v(i);
+%     end
+%     x = x / n;
+% endfunction
+%   \end{pygmented}
+%   \framebreak
+%   \begin{pygmented}[lang=scilab]
+% // Programa principal
+% vet1 = [ 12, 22, 78, 66];
+% vet2 = [ 11, 88, 77, 99];
+% vet3 = [ 5, 7, 2, 1];
+% printf("vet1: menor: %g, média: %g\n", menor(vet1), media(vet1));
+% printf("vet2: menor: %g, média: %g\n", menor(vet2), media(vet3));
+% printf("vet3: menor: %g, média: %g\n", menor(vet3), media(vet3));
+%   \end{pygmented}
+% \end{frame}
+
+\begin{frame}[fragile,allowframebreaks]{Exemplo: número de combinações}
+  Escrever um programa que calcula o número de combinações de $n$
+  elementos tomados $k$ a $k$, sendo $n$ e $k$ fornecidos pelo usuário.
+
+  \[
+  C^n_k = \frac{n!}{(n-k)! \, k!}
+  \]
+
+  \framebreak
+  \begin{pygmented}[lang=scilab]
+clear; clc;
+
+// Função para encontrar o fatorial de um número inteiro
+function fat = fatorial(n)
+    fat = 1;
+    for i = 1:n
+        fat = fat * i;
+   end
+endfunction
+
+// Função para calcular o número de combinações
+function x = numCombinacoes(n, k)
+    x = fatorial(n) / (fatorial(n - k) * fatorial(k));
+endfunction
+
+// Programa principal
+n = input("n: ");
+k = input("k: ");
+nComb = numCombinacoes(n, k);
+printf("Número de combinações: %g\n", nComb);
+  \end{pygmented}
+\end{frame}
+
+\end{document}

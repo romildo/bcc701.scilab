@@ -1,0 +1,12 @@
+clc; clear;
+printf("Lançamento de um Projétil\n");
+a = %pi/6;
+v0 = 200;
+y0 = 0;
+g = 9.81;
+v0y = v0 * sin(a);
+t = [1:1:20];
+y = y0 + v0y*t - 1/2*g*t.^2;
+[ymax,tmax] = max(y);
+printf("Altura Máxima: %g m\n", ymax);
+printf("Tempo: %g s\n", tmax);

@@ -1,0 +1,75 @@
+\documentclass[11pt]{practice}
+
+% Comente a linha seguinte para incluir as soluções
+\tcbset{lowerbox=ignored}
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Aula prática 15}
+\title{Revisão 3c}
+\author{}
+\date{2013--2}
+\maketitle
+
+\begin{abstract}
+  Esta prática é uma preparação para a terceira prova. Vamos lidar com
+  problemas cuja solução envolve o uso des conceitos vistos até agora,
+  destacando: vetores, matrizes e funções.
+\end{abstract}
+
+%\tableofcontents
+
+\section{Exercícios}
+
+\begin{task}[breakable]{Correção de prova\footnote{Questão 3 da prova 3 de 2013/1}}{}
+
+  Construa um programa na linguagem Scilab para corrigir cinco provas de
+  múltipla escolha. Cada prova é composta por dez questões valendo um
+  ponto cada. A correção é feita comparando as respostas com um
+  gabarito. A resposta de cada questão pertence ao intervalo inteiro [1:
+  4]. O gabarito está armazenado em um vetor linha e as provas estão
+  armazenadas em uma matriz $5 \times 10$, sendo que o índice da linha
+  da matriz corresponde ao número do candidato, conforme os comandos
+  abaixo:
+
+  \begin{minted}{scilab}
+gabarito = [ 1, 4, 2, 3, 3, 4, 1, 1, 3, 2 ];
+
+provas  = [ 1, 2, 2, 3, 3, 4, 4, 1, 3, 2;   // prova 1
+            1, 2, 2, 3, 3, 4, 4, 1, 3, 2;   // prova 2
+            2, 4, 2, 3, 3, 1, 4, 1, 3, 1;   // prova 3
+            1, 4, 2, 3, 3, 4, 1, 1, 3, 2;   // prova 4
+            1, 1, 1, 3, 1, 1, 1, 1, 3, 2 ]; // prova 5
+  \end{minted}
+
+  Os dados (gabarito e respostas das provas) não precisam ser digitados
+  pelo usuário. Podem ser atribuídos diretamente no programa como
+  mostrado acima.
+
+  O seu programa deve:
+  \begin{enumerate}
+    \item calcular e exibir as notas dos candidatos (não é necessário
+    armazenar em um vetor), e
+    \item calcular e exibir a média das notas.
+  \end{enumerate}
+
+  \begin{runexample}
+RESULTADO DA PROVA
+
+Nota do candidato nº 1: 8
+Nota do candidato nº 2: 8
+Nota do candidato nº 3: 6
+Nota do candidato nº 4: 10
+Nota do candidato nº 5: 6
+
+Média das notas: 7.6
+  \end{runexample}
+
+  \tcblower
+  \solution
+  \lstinput{scilab}{listings/p15/correcao.sce}
+\end{task}
+
+\end{document}

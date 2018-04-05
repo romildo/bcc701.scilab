@@ -1,0 +1,323 @@
+% compile with
+%   pdflatex --shel-escape p02-variaveis
+% or
+%   latexmk -pvc -pdf -latexoption=--shell-escape p02-variaveis
+%
+%!TEX encoding = UTF-8
+
+\documentclass[11pt,fleqn]{practice}
+
+%\usepackage[american voltages]{circuitikz}
+\usepackage{cancel}
+\usepackage{subfigure}
+
+
+
+\begin{document}
+
+\institution{UFOP\quad DECOM}
+\course{Programação de Computadores I}
+\subtitle{Exercícios de Revisão}
+\title{Variáveis, Expressões, Atribuição, Matrizes, Comandos de Desvio}
+% \author{Jos?� Romildo Malaquias\thanks{\url{romildo@iceb.ufop.br}}}
+\date{2013--2}
+\maketitle
+
+\tableofcontents
+
+\vspace*{1cm}
+\section{Testes de Compreensão}
+
+\begin{enumerate}
+
+\item Qual seriam os valores das variáveis \texttt{a} e \texttt{b} ao final da execução do seguinte código?
+
+\begin{lst}{scilab}
+a = 2 ^ 3+1
+b = 7 – a * 2
+if b>0 \& (-1)^a+1 == 0 then
+	a = b
+       b = b+15
+else 
+      a = -b
+\end{lst} 
+
+\item E se trocarmos o operador \texttt{\&} pelo operador \texttt{|} no código acima?
+
+\item Qual seriam os valores das variáveis \texttt{a}, \texttt{b}, \texttt{c} e \texttt{d} ao final da execução do seguinte código?
+
+\begin{lst}{scilab}
+a = [0:2:7; 3, [3:-2:-1] ]
+b = a(2,2) + a(2,1)
+c = a(2,3:4)
+d = (c * b) .* a(:,1)
+\end{lst} 
+
+
+\item Sejam \texttt{A = [7 8 9]} e \texttt{B = [9 8 7]}. Usando apenas operações sobre essas duas  matrizes e a expressão \texttt{1:3}, escreva um comando que atribui à variável \texttt{C} a matriz representada como:
+\[ \left[ \begin{array}{rrrr}
+      1 & 7 & 9 & 2    \\
+      2 & 8 & 8 & 0   \\
+      3 & 9 & 7 & -2 \\
+    \end{array} \right]
+\] 
+
+\item Seja \texttt{M} a matriz quadrada definida como \texttt{M=[1 5 3; 2 8 1; 6 3 4]}. Qual seriam os resultados das seguintes operações:
+\begin{enumerate}
+   \item \texttt{M + ones(3,3)}
+   \item \texttt{M .* ones(3,3)}
+   \item \texttt{M * ones(3,3)}
+\end{enumerate}
+
+\end{enumerate}
+
+\section{Variáveis, Expressões, Atribuição, E/S}
+
+\begin{enumerate}
+
+\item Escreva um programa que leia o raio ($r$) e a altura ($h$) de um cilindro e imprima o seu volume ($V$), que é calculado pela equação:
+\[ V = \pi r^2 h \]
+
+  \begin{runexample}
+Volume de um cilindro
+------------------------
+Digite o raio (cm) : 10
+Digite a altura (cm): 15
+Volume = 4712.39 cm3
+\end{runexample}
+
+\item Uma alavanca é um objeto rígido, que é usado com um ponto fixo apropriado (fulcro), para multiplicar a força mecânica que pode ser aplicada a um outro objeto (resistência). O princípio de funcionamento das alavancas, descrtio pela equação abaixo, foi descoberto por Arquimedes no século III a. C., sendo atribuída a ele a frase "Dê-me um ponto de apoio e moverei o mundo".
+
+\begin{figure}[h!]
+  \centering
+  \begin{minipage}[t]{0.4\linewidth}
+       \fbox{$F_1\, d_1 = F_2\, d_2$} 
+   \end{minipage}  
+ \begin{minipage}{0.7\linewidth}
+     \includegraphics[width=0.7\linewidth]{images/alavanca}
+  \end{minipage}
+ \end{figure}
+
+Escreva um programa que leia o comprimento total da alavanca, a distância ($d_1$) do objeto (resistência) ao fulcro e o peso deste objeto, e imprima a força ($F2$) requerida para equilibrar a alavanca. 
+
+  \begin{runexample}
+Alavanca
+------------------------
+Digite o comprimento da alavanca (m) : 10
+Digite a distância da resistência ao fulcro (m): 2
+Digite o peso da resistência (kg): 10000
+Força de equilíbro = 250 kg
+\end{runexample}
+
+\item Uma progressão geométrica de razão $r$, é uma série de termos da forma $r^i$ para $i=0,1,\ldots$. Por exemplo, os 5 primeiros termos da progressão geométrica de razão 3 são: 
+\[ \begin{array}{lllll} 3^0 &  3^1 &  3^2 &  3^3 & 3^4 \end{array} \]
+A soma dos $n$ primeiros termos de uma progressão geométrica de razão $r$ pode ser calculada pela fórmula:
+\[ \sum_{i=0}^n r^i = \frac{r^{n+1} - 1}{r - 1} \]
+Escreva um programa que leia a razão e o número de termos de uma série geométrica e imprima a soma desses termos.
+
+  \begin{runexample}
+Somatório de Progressão Geométrica
+--------------------------------
+Digite a razão da progressão geométrica: 3
+Digite o número de termos: 5
+Soma dos termos = 364
+\end{runexample}
+
+\item Suponha que uma pessoa fez um investimento de um capital de valor $C$, a uma taxa de juros de $i\%$ ao mês. O montante $M$ obtido ao final de $n$ meses é calculado como:
+\[ M = C * (1 + i)^n \] 
+Escreva um programa que leia o valor investido, a taxa de rendimento mensal e o período do investimento e imprima o montante obtido. Seu programa deve verificar se os valores dos dados de entrada são válidos, isto é, se todos os valores não negativos, sendo $n$ inteiro e $i$  compreendido no intervalo $0 \leq i \leq 0.1$. Caso algum dos valores informados seja inválido, o programa deve terminar exibindo a mensagem \emph{dados inválidos}. Imprima o valor do montante obtido com exatamente 2 casas decimais.
+
+  \begin{runexample}
+Investimento
+--------------------------------
+Informe a taxa de rendimento: 0.02
+Informe o capital investido: 1200
+Informe o período do investimento (meses): 12
+Capital atual  = R$  1521.89
+\end{runexample}
+
+\item Suponha que número de uma placa de um veículo é composto por quatro algarismos; por exemplo, 2018. Escreva um programa que leia este número e exiba na tela os 4 algarismos, indicando a posição decimal em que cada um ocorre (isto é, unidade, dezena, centena e milhar) e imprima a soma desses algarismos.
+
+  \begin{runexample}
+Placa de veículo
+-------------
+Informe o número da placa: 2018
+Unidade:  8
+Dezena:   1
+Centena:  0
+Milhar:     2
+Soma =  11
+\end{runexample}
+
+\end{enumerate}
+
+\section{Comandos de Desvio}
+
+\begin{enumerate}
+
+\item Segundo uma tabela médica, o peso ideal de uma pessoa é relacionado com sua altura ($h$):
+\begin{center}
+\begin{tabular}{ll} 
+\multicolumn{2}{c}{Peso Ideal} \\\hline
+homens     & 72.7 $h$ - 58.0 \\
+mulheres   & 62.1 $h$ - 44.7 \\\hline
+\end{tabular}
+\end{center}
+Escreva um programa que leia a altura e o sexo de uma pessoa e imprima o seu peso ideal. 
+
+  \begin{runexample}
+Peso ideal
+-------------
+Informe seu sexo (m ou f): f
+Informe sua altura(m):  1.65
+Peso ideal = 57.765
+\end{runexample}
+
+\emph{Dica\/}: Para ler um dado que seja uma string, é necessário especificar \texttt{(s")} como um parâmetro adicional  para o comando \texttt{input}. Isso indica que o valor a ser lido deve ser entendido como uma string, não sendo necessário digitá-lo entre aspas. Por exemplo, neste problema, o sexo poderia ser lido  na seguinte forma:
+\begin{lst}{text} sexo = input("Informe o sexo: ","s")} \end{lst}
+
+\item O pH de uma solução aquosa é medido por sua acidez. A escala do pH varia entre 0 e 14, inclusive. Uma solução como pH igual a 7 é dita neutra; uma solução com o pH maior que 7 é dita básica; e uma solução com o pH menor que 7 é dita ácida. Escreva um programa que leia o pH de uma solução e imprima se a solução é neutra, básica ou ácida.
+
+  \begin{runexample}
+Classificação de pH
+------------------------
+Informe o pH da solução: 7
+Solução NEUTRA 
+\end{runexample}
+
+
+\item A equação de continuidade em dinâmica dos fluidos, para o fluxo estacionário de um fluido através de um tubo, relaciona a densidade ($d$) e a velocidade ($v$) do fluido, com a área da seção ($a$), em dois diferentes pontos do tubo. No caso de um fluido imcompressível, a densidade é constante e a equação se reduz a $a_1\, v_1 = a_2\, v_2$. Portanto, a velocidade no segundo ponto pode ser maior ou menor do que no primeiro ponto, dependendo da relação entre as áreas dos mesmos. Escreva um programa que leia as áreas das seções do tubo (em $\text{cm}^2$ em dois diferentes pontos, e imprima uma mensagem indicando se a velocidade do fluido é maior, igual ou menor no segundo ponto, em relação ao primeiro ponto. Seu programa deve verificar se os valores dados como entrada são válidos, isto é, se são maiores que 0. 
+
+  \begin{runexample}
+Velocidade de fluxo de um fluido
+-----------------------------
+Informe a área da seção do tubo no ponto 1: 100
+Informe a área da seção do tubo no ponto 2: 27
+A velocidade no ponto 2 é MAIOR que no ponto 1 
+\end{runexample}
+
+
+\item O custo de aluguel de um veículo é calculado do seguinte modo:
+\begin{itemize}
+    \item O custo por km para os primeiros 1.000 km é de R\$1,20
+    \item O custo por km para os 2.000 km seguintes é de R\$ 0,80
+    \item O custo por km para os demais kms, depois dos 3.000 km iniciais, é R\$ 0.70
+\end{itemize}
+Por exemplo se um carro alugado andar 4.500 km, o custo do aluguel será
+\[ C = (4500 – 3000) x 0.70 + (2.000 x 0.80) + (1.000 x 1,20) = 3650 \text{reais} \]
+ 
+Escreva um programa que leia a distância percorrida por um carro alugado (em km) e imprima o custo do aluguel deste veículo.
+
+  \begin{runexample}
+Custo de aluguel de veículo
+------------------------
+Informe a km rodada: 4500
+Distância percorrida = 4500
+Custo de locação = R\$ 3650
+\end{runexample}
+
+\end{enumerate}
+
+\section{Vetores e Matrizes}
+
+\begin{enumerate}
+
+\item O salário semanal dos operários de uma companhia de construção civil é calculado conforme no número de horas trabalhadas na semana e o valor do seu salário/hora. Escreva um programa pque leia os dados para cálculo do pagamento dos funcionários em uma semana e calcule o valor a ser pago a cada um. Os dados de entrada devem ser lidos como vetor, no qual, para cada funcioário, o número de horas trabalhadas na semana é seguido pelo valor do seu salário/hora. Por exemplo, se o vetor de entrada for \texttt{[30 10.50 40 18.00 20 7.50]} isso representa que o funcionário 1 trabalhou 30 horas e seu salário/hora é R\$ 10,50, o funcionário 2 trabalhou 40 horas e seu salário/hora é R\$ 18,00, e o funcionário 3 trabalhou 20 horas, e seu salário/hora é R\$ 7,50. Seu programa deve separar este vetor em dois vetores, de horas trabalhadas e de salário/hora, para cada funcionário. e utilizar operações sobre esses dois vetores para calcular o valor a ser pago a cada funcionário.  
+
+\begin{runexample}
+Pagamento semanal
+-----------------------
+Informe horas trabalhadas e salário/hora: [30 10.50 40 18.00 20 7.50]
+Valor a ser pago aos funcionários = 315.00    720.00    150.00 
+\end{runexample}
+
+
+\item Escreva um programa que leia um horário, como um vetor com 3 valores \texttt{[horas minutos segundos]}, e imprima o total de segundos decorridos desde o início do dia (0:00h).
+
+\begin{runexample}
+Tempo em seg
+-------------
+Informe o horário: [2 13 3]
+Decorridos 7230 segundos
+\end{runexample}
+
+\item O matemático Euler provou o seguinte:
+\[ \frac{pi^2}{6} = 1 + \frac{1}{4} + \frac{1}{9} + \frac{1}{16} + \ldots\]
+ Ao invés de tentar provar isso, procure verificar se esta conjectura parece ser verdadeira ou não. Escreva um programa para calcular uma aproximação para o valor de $\pi$, usando a fórmula acima. Seu programa deve ler o número $n$ de termos da série a serem considerados no cálculo e imprimir o valor calculado. Imprima também, Teste seu programa para valores crescentes de $n$ e verifique se os valores obtidos se aproximam do valor de $\pi$.
+
+  \begin{runexample}
+Cálculo aproximado de pi 1
+------------------------
+Digite n: 100
+pi  ~=  3.1320765 
+\end{runexample}
+
+\item O valor de $\pi$ pode também ser aproximado pelo seguinte somatório: 
+\[  \pi \approx 4 \sum_{i=1}^n \frac{(-1)^i}{2i+1} \]
+Isso significa que o valor deste somatório aproxima-se cada vez mais do valor de $\pi$ à medida que maior número de termos forem considerados, como mostra a tabela a seguir:
+
+\begin{center}
+\begin{tabular}{rr}
+	$n$ & valor aproximado de $\pi$ \\\hline
+          10  & 3.2323158 \\
+         100 & 3.1514934 \\
+       1000 & 3.1425917 \\
+ 1000000 & 3.1415937 \\\hline
+\end{tabular}
+\end{center}
+
+Escreva um programa que leia um valor $n$ e calcule um valor aproximado para $\pi$, de acordo com a equação acima. Seu programa deve verificar se o valor lido para $n$ é tal que $n \geq 0$, imprimindo uma mensagem indicativa de dado inválido, caso contrário. 
+
+  \begin{runexample}
+Cálculo aproximado de pi 2
+------------------------
+Digite n: 100
+pi  ~=  3.1514934
+\end{runexample}
+
+\item Um circuito elétrico composto de $n$ resistores em paralelo é mostrado na figura a seguir, onde $R_1, \ldots, R_n$ são os valores das resistências (em ohms) de cada um dos resistores. 
+   \begin{center}
+     \includegraphics[width=.4\linewidth]{images/circuito-paralelo}
+   \end{center}
+A resistência equivalente$R\text{eq}$ neste circuito pode ser calculada pela equação:
+\[ \frac{1}{R_\text{eq}} = \frac{1}{R_1} + \frac{1}{R_2} + \ldots \frac{1}{R_n} \]
+Supondo que o valor da tensão de alimentação do circuito é $V$ volts, a corrente total no circuito $I$, e a  corrente $I_k$, no resistor $k$, para $0\leq k \leq n$, são calculadas segundo a Lei de Ohm:
+ \[ \begin{array}{lcll} 
+     I = \frac{V}{R_\text{eq}}  & \hspace*{.5cm} & I_ k = \frac{V}{R_k} & k=1,\ldots,n 
+    \end{array}
+\] 
+Escreva um programa que leia as resistências dos resistores de um circuito em paralelo, como um vetor, e leia o valor da tensão de alimentação neste circuito, e imprima, em seguida, o valor da corrente total no ciruito e uma tabela dos valores das resistências e correntes em cada resistor. 
+ 
+\begin{runexample}
+Circuito Paralelo
+--------------------
+Informe os valores das resistências (em ohms):  [23 12 8]
+Informe a tensão de alimentação (em volts): 10
+
+Corrente total =  2.5181159  amp
+----------------------------
+N  Resistência       Corrente
+1         23.0       0.4347826
+2         12.0       0.8333333
+3           8.0      1.2500000
+\end{runexample}
+        
+\emph{Dica\/}: Estrutura do programa
+\begin{enumerate}
+   \item Leia os dados de entrada (note que os valores das resistências constituem um vetor)
+   \item Cálculo da resitência equivalente: usando operações escalares sobre o vetor de resistências e a função \texttt{sum($A$)}, que retorna a soma do valores da matriz $A$.
+   \item Cálculo da corrente total: trivial.
+   \item Cálculo do vetor de correntes em cada resistor: operações escalares sobre o vetor de resistências
+   \item Crie uma matriz \texttt{T} que contenha os dados da tabela de resistências e correntes: usando os vetores de resistências e de correntes, e a operação de transposição de matrizes.
+  \item Para imprimir a tabela no formato apropriado, use um comando \texttt{printf} para imprimir o cabeçalho da tabela e, em seguida, use o seguinte comando para imprimir a matriz \texttt{T}: 
+\begin{lst}{text}
+	printf("\%1.0f \%8.1f \%12.8f\\n",T)
+\end{lst} 
+\end{enumerate}
+
+
+
+\end{enumerate}
+
+
+\end{document}
